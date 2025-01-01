@@ -1,0 +1,185 @@
+The **Standard Template Library (STL)** in C++ provides several useful numeric algorithms in the `<numeric>` header. These algorithms are designed to perform common numerical operations on ranges of data, often in combination with iterators. Here's an overview of the most commonly used numeric algorithms:
+
+---
+
+### 1. **`std::accumulate`**
+- **Purpose**: Computes the sum (or custom reduction) of a range.
+- **Prototype**: 
+  ```cpp
+  template<class InputIt, class T>
+  T accumulate(InputIt first, InputIt last, T init);
+  
+  template<class InputIt, class T, class BinaryOperation>
+  T accumulate(InputIt first, InputIt last, T init, BinaryOperation op);
+  ```
+- **Example**:
+  ```cpp
+  #include <numeric>
+  #include <vector>
+  #include <iostream>
+
+  int main() {
+      std::vector<int> v = {1, 2, 3, 4, 5};
+      int sum = std::accumulate(v.begin(), v.end(), 0); // Sum: 15
+      int product = std::accumulate(v.begin(), v.end(), 1, std::multiplies<int>()); // Product: 120
+
+      std::cout << "Sum: " << sum << "\n";
+      std::cout << "Product: " << product << "\n";
+  }
+  ```
+
+Purpose of Initial Value = 0
+Starting Point for Summation:
+The initial value is added to the sum of the elements. For example:
+
+cpp
+Copy code
+std::accumulate(v.begin(), v.end(), 0);
+This starts with 0 and adds each element of the vector to it. If you set the initial value to 10, the sum would be calculated as:
+
+10
++
+sum of elements in the range
+10+sum of elements in the range
+Type Control:
+The type of the initial value determines the type of the result. For instance:
+
+If you provide 0, the result is computed as an integer.
+If you provide 0.0, the result is computed as a double.
+
+---
+
+### 2. **`std::inner_product`**
+- **Purpose**: Computes the inner (dot) product of two ranges.
+- **Prototype**:
+  ```cpp
+  template<class InputIt1, class InputIt2, class T>
+  T inner_product(InputIt1 first1, InputIt1 last1, InputIt2 first2, T init);
+  
+  template<class InputIt1, class InputIt2, class T, class BinaryOperation1, class BinaryOperation2>
+  T inner_product(InputIt1 first1, InputIt1 last1, InputIt2 first2, T init, BinaryOperation1 op1, BinaryOperation2 op2);
+  ```
+- **Example**:
+  ```cpp
+  #include <numeric>
+  #include <vector>
+  #include <iostream>
+
+  int main() {
+      std::vector<int> v1 = {1, 2, 3};
+      std::vector<int> v2 = {4, 5, 6};
+      int result = std::inner_product(v1.begin(), v1.end(), v2.begin(), 0); // Result: 1*4 + 2*5 + 3*6 = 32
+
+      std::cout << "Inner Product: " << result << "\n";
+  }
+  ```
+
+---
+
+### 3. **`std::partial_sum`**
+- **Purpose**: Computes the partial sums of a range.
+- **Prototype**:
+  ```cpp
+  template<class InputIt, class OutputIt>
+  OutputIt partial_sum(InputIt first, InputIt last, OutputIt d_first);
+  
+  template<class InputIt, class OutputIt, class BinaryOperation>
+  OutputIt partial_sum(InputIt first, InputIt last, OutputIt d_first, BinaryOperation op);
+  ```
+- **Example**:
+  ```cpp
+  #include <numeric>
+  #include <vector>
+  #include <iostream>
+
+  int main() {
+      std::vector<int> v = {1, 2, 3, 4};
+      std::vector<int> result(v.size());
+      std::partial_sum(v.begin(), v.end(), result.begin()); // Result: {1, 3, 6, 10}
+
+      for (int x : result) std::cout << x << " ";
+  }
+  ```
+
+---
+
+### 4. **`std::adjacent_difference`**
+- **Purpose**: Computes the difference between adjacent elements in a range.
+- **Prototype**:
+  ```cpp
+  template<class InputIt, class OutputIt>
+  OutputIt adjacent_difference(InputIt first, InputIt last, OutputIt d_first);
+  
+  template<class InputIt, class OutputIt, class BinaryOperation>
+  OutputIt adjacent_difference(InputIt first, InputIt last, OutputIt d_first, BinaryOperation op);
+  ```
+- **Example**:
+  ```cpp
+  #include <numeric>
+  #include <vector>
+  #include <iostream>
+
+  int main() {
+      std::vector<int> v = {1, 2, 4, 7, 11};
+      std::vector<int> result(v.size());
+      std::adjacent_difference(v.begin(), v.end(), result.begin()); // Result: {1, 1, 2, 3, 4}
+
+      for (int x : result) std::cout << x << " ";
+  }
+  ```
+
+---
+
+### 5. **`std::iota`**
+- **Purpose**: Fills a range with sequentially increasing values.
+- **Prototype**:
+  ```cpp
+  template<class ForwardIt, class T>
+  void iota(ForwardIt first, ForwardIt last, T value);
+  ```
+- **Example**:
+  ```cpp
+  #include <numeric>
+  #include <vector>
+  #include <iostream>
+
+  int main() {
+      std::vector<int> v(5);
+      std::iota(v.begin(), v.end(), 10); // Fills: {10, 11, 12, 13, 14}
+
+      for (int x : v) std::cout << x << " ";
+  }
+  ```
+
+---
+
+### Common Use Cases
+- Summing numbers: `std::accumulate`
+- Calculating factorials or products: `std::accumulate` with a custom operation.
+- Finding cumulative sums or products: `std::partial_sum`
+- Vector mathematics: `std::inner_product`
+- Generating sequences: `std::iota`
+
+These numeric algorithms save time and reduce errors by providing optimized and concise solutions for common numerical computations. Let me know if you'd like tailored examples or advanced use cases!
+
+Here's a table summarizing the key functions from `<numeric>` for your notes:  
+
+| **Function**            | **Purpose**                                                                                      | **Syntax**                                                                                               | **Example Usage**                                                                                       |
+|--------------------------|--------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| **`std::accumulate`**(\/)    | Computes the sum (or a custom operation) of elements in a range.                                 | `std::accumulate(first, last, init);` <br> `std::accumulate(first, last, init, binary_op);`             | Sum: `std::accumulate(v.begin(), v.end(), 0);` <br> Product: `std::accumulate(v.begin(), v.end(), 1, [](int a, int b) { return a * b; });` |
+| **`std::inner_product`**(\/) | Computes the inner (dot) product of two ranges.                                                 | `std::inner_product(first1, last1, first2, init);`                                                      | `std::inner_product(v1.begin(), v1.end(), v2.begin(), 0);`                                             |
+| **`std::partial_sum`**(\/)   | Computes partial sums of elements in a range.                                                   | `std::partial_sum(first, last, result);` <br> `std::partial_sum(first, last, result, binary_op);`       | `std::partial_sum(v.begin(), v.end(), result.begin());`                                                |
+| **`std::adjacent_difference`**(\/) | Computes differences between adjacent elements in a range.                                     | `std::adjacent_difference(first, last, result);` <br> `std::adjacent_difference(first, last, result, binary_op);` | `std::adjacent_difference(v.begin(), v.end(), result.begin());`                                        |
+| **`std::iota`**(\/)          | Fills a range with sequentially increasing values starting from a given value.                  | `std::iota(first, last, value);`                                                                        | `std::iota(v.begin(), v.end(), 10);`                                                                   |
+
+---
+
+### **Explanation of Columns**
+1. **Function**: The name of the numeric algorithm.
+2. **Purpose**: What the function is used for.
+3. **Syntax**: The function's syntax, including optional parameters.
+4. **Example Usage**: Real-life examples demonstrating how to use each function.
+
+---
+
+Let me know if you want additional details or examples for this table!

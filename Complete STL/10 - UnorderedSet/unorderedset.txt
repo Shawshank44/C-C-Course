@@ -1,0 +1,155 @@
+Here is a list of the **most commonly used member functions** in `std::unordered_set`, a hash-based associative container in C++ that stores unique elements without any specific order. Like `std::unordered_map`, it offers average **O(1)** complexity for insertion, deletion, and lookup operations.
+
+---
+
+### **1. Inserting and Removing Elements**
+- **`insert()`**: Adds a new element to the unordered set. If the element already exists, it does nothing.
+  - Example:
+    ```cpp
+    std::unordered_set<int> us;
+    us.insert(10);
+    us.insert(20);
+    ```
+
+- **`emplace()`**: Efficiently constructs and inserts an element directly in-place without copying or moving.
+  - Example:
+    ```cpp
+    us.emplace(30);
+    ```
+
+- **`erase()`**: Removes an element by value or by iterator.
+  - Example:
+    ```cpp
+    us.erase(10); // Removes the element with value 10
+    ```
+
+- **`clear()`**: Removes all elements from the unordered set.
+  - Example:
+    ```cpp
+    us.clear();
+    ```
+
+---
+
+### **2. Lookup**
+- **`find()`**: Searches for a specific element and returns an iterator to it, or `end()` if not found.
+  - Example:
+    ```cpp
+    auto it = us.find(20);
+    if (it != us.end()) {
+        std::cout << "Found: " << *it << "\n";
+    }
+    ```
+
+- **`count()`**: Returns 1 if the element exists, 0 otherwise. Since `unordered_set` doesn’t allow duplicates, the count is always 0 or 1.
+  - Example:
+    ```cpp
+    if (us.count(20)) {
+        std::cout << "20 exists in the set.\n";
+    }
+    ```
+
+---
+
+### **3. Iterators**
+- **`begin()` / `end()`**: Iterators to the first and one-past-the-last element, respectively.
+- **`cbegin()` / `cend()`**: Constant iterators for read-only access.
+  - Example:
+    ```cpp
+    for (auto it = us.begin(); it != us.end(); ++it) {
+        std::cout << *it << "\n";
+    }
+    ```
+
+---
+
+### **4. Capacity**
+- **`size()`**: Returns the number of elements in the unordered set.
+  - Example:
+    ```cpp
+    std::cout << "Size: " << us.size() << "\n";
+    ```
+
+- **`empty()`**: Checks whether the unordered set is empty.
+  - Example:
+    ```cpp
+    if (us.empty()) {
+        std::cout << "The set is empty.\n";
+    }
+    ```
+
+- **`max_size()`**: Returns the maximum number of elements that the unordered set can theoretically hold.
+
+---
+
+### **5. Hash Policy**
+- **`bucket_count()`**: Returns the number of buckets in the container.
+- **`load_factor()`**: Returns the load factor, which is the average number of elements per bucket.
+- **`rehash(n)`**: Reorganizes the hash table to have at least `n` buckets.
+- **`reserve(n)`**: Prepares the container to hold at least `n` elements without rehashing.
+
+---
+
+### **Top 10 Most Commonly Used Functions**
+1. **`insert()`**: To add elements.(\/)
+2. **`emplace()`**: For efficient in-place insertion.(\/)
+3. **`erase()`**: To remove elements by value.(\/)
+4. **`find()`**: To search for an element.(\/)
+5. **`count()`**: To check if an element exists.(\/)
+6. **`size()`**: To get the number of elements.(\/)
+7. **`empty()`**: To check if the set is empty.(\/)
+8. **`clear()`**: To remove all elements.(\/)
+9. **`begin()` / `end()`**: For iteration.(\/)
+10. **`reserve(n)`**: To optimize memory allocation for a known number of elements.(\/)
+
+---
+
+### **Example of Common Operations**
+```cpp
+#include <iostream>
+#include <unordered_set>
+
+int main() {
+    std::unordered_set<int> us;
+
+    // Insert elements
+    us.insert(10);
+    us.insert(20);
+    us.emplace(30);
+
+    // Access elements
+    if (us.count(20)) {
+        std::cout << "20 exists in the set.\n";
+    }
+
+    // Remove an element
+    us.erase(10);
+
+    // Iterate through the unordered set
+    for (const auto& elem : us) {
+        std::cout << elem << " ";
+    }
+    std::cout << "\n";
+
+    // Size of the unordered set
+    std::cout << "Size: " << us.size() << "\n";
+
+    return 0;
+}
+```
+
+**Output**:
+```
+20 exists in the set.
+30 20
+Size: 2
+```
+
+---
+
+### Why Use `std::unordered_set`?
+- **Fast Lookup and Insertions**: Average **O(1)** complexity for most operations.
+- **No Duplicates**: Each element is unique.
+- **Unordered**: Elements are not stored in any specific order, which provides better performance in certain use cases compared to `std::set`.
+
+Let me know if you'd like further clarification or more examples!

@@ -1,0 +1,187 @@
+The C++ Standard Template Library (STL) provides efficient functions for working with **heaps**, particularly max-heaps, through the `<algorithm>` header. Here’s a complete overview of heap-related algorithms in STL:
+
+---
+
+### **Heap STL Algorithms**
+
+#### 1. **`std::make_heap`**
+   - **Purpose**: Converts a range into a max-heap.
+   - **Usage**: `std::make_heap(begin, end);`
+   - **Complexity**: \( O(n) \)
+   - **Example**:
+     ```cpp
+     #include <iostream>
+     #include <vector>
+     #include <algorithm>
+
+     int main() {
+         std::vector<int> vec = {10, 20, 15, 30, 40};
+         std::make_heap(vec.begin(), vec.end());
+         std::cout << "Max element: " << vec.front() << '\n';
+         return 0;
+     }
+     ```
+
+---
+
+#### 2. **`std::push_heap`**
+   - **Purpose**: Adds an element to a heap while maintaining the heap property.
+   - **Usage**: 
+     1. Insert the new element at the end of the container.
+     2. Call `std::push_heap` on the range `[begin, end)`.
+   - **Complexity**: \( O(\log n) \)
+   - **Example**:
+     ```cpp
+     vec.push_back(50);        // Add element to the vector
+     std::push_heap(vec.begin(), vec.end()); // Maintain heap property
+     ```
+
+---
+
+#### 3. **`std::pop_heap`**
+   - **Purpose**: Removes the largest element from the heap and moves it to the end of the range.
+   - **Usage**: `std::pop_heap(begin, end);`
+   - **Complexity**: \( O(\log n) \)
+   - **Example**:
+     ```cpp
+     std::pop_heap(vec.begin(), vec.end()); // Move max to end
+     vec.pop_back(); // Remove the element
+     ```
+
+---
+
+#### 4. **`std::sort_heap`**
+   - **Purpose**: Converts a max-heap into a sorted range in ascending order.
+   - **Usage**: `std::sort_heap(begin, end);`
+   - **Complexity**: \( O(n \log n) \)
+   - **Example**:
+     ```cpp
+     std::sort_heap(vec.begin(), vec.end());
+     for (int val : vec) std::cout << val << ' ';
+     ```
+
+---
+
+#### 5. **`std::is_heap`**
+   - **Purpose**: Checks if the range satisfies the heap property.
+   - **Usage**: `std::is_heap(begin, end);`
+   - **Complexity**: \( O(n) \)
+   - **Example**:
+     ```cpp
+     if (std::is_heap(vec.begin(), vec.end())) {
+         std::cout << "vec is a heap\n";
+     }
+     ```
+
+---
+
+#### 6. **`std::is_heap_until`**
+   - **Purpose**: Finds the largest prefix of the range that satisfies the heap property.
+   - **Usage**: `auto it = std::is_heap_until(begin, end);`
+   - **Complexity**: \( O(n) \)
+   - **Example**:
+     ```cpp
+     auto it = std::is_heap_until(vec.begin(), vec.end());
+     std::cout << "Heap property holds until index: " 
+               << std::distance(vec.begin(), it) << '\n';
+     ```
+
+---
+
+### **Complete Example**
+
+Here’s how these functions can be used together:
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int main() {
+    std::vector<int> vec = {10, 20, 15, 30, 40};
+
+    // Make a heap
+    std::make_heap(vec.begin(), vec.end());
+    std::cout << "Heap created: ";
+    for (int v : vec) std::cout << v << " ";
+    std::cout << '\n';
+
+    // Push a new element
+    vec.push_back(50);
+    std::push_heap(vec.begin(), vec.end());
+    std::cout << "After push_heap: ";
+    for (int v : vec) std::cout << v << " ";
+    std::cout << '\n';
+
+    // Pop the largest element
+    std::pop_heap(vec.begin(), vec.end());
+    std::cout << "After pop_heap: ";
+    for (int v : vec) std::cout << v << " ";
+    std::cout << '\n';
+    vec.pop_back(); // Remove the max element
+
+    // Sort the heap
+    std::sort_heap(vec.begin(), vec.end());
+    std::cout << "After sort_heap: ";
+    for (int v : vec) std::cout << v << " ";
+    std::cout << '\n';
+
+    // Check if a range is a heap
+    std::make_heap(vec.begin(), vec.end()); // Re-make the heap
+    if (std::is_heap(vec.begin(), vec.end())) {
+        std::cout << "vec is a heap\n";
+    }
+
+    // Find heap boundary
+    auto it = std::is_heap_until(vec.begin(), vec.end());
+    std::cout << "Heap property holds until index: "
+              << std::distance(vec.begin(), it) << '\n';
+
+    return 0;
+}
+```
+
+Output:
+```
+Heap created: 40 30 15 10 20 
+After push_heap: 50 40 15 10 20 30 
+After pop_heap: 40 30 15 10 20 50 
+After sort_heap: 10 15 20 30 40 
+vec is a heap
+Heap property holds until index: 5
+```
+
+---
+
+This demonstrates the complete workflow of heap-related STL functions in C++. Let me know if you'd like an example for **min-heaps** or more advanced customizations!
+
+
+Here is a neatly formatted table for all the heap-related STL functions in C++:
+
+| **Function**        | **Purpose**                                                                 | **Usage**                        | **Complexity**  | **Notes**                                                                                                   |
+|---------------------|-----------------------------------------------------------------------------|----------------------------------|----------------|-----------------------------------------------------------------------------------------------------------|
+| `std::make_heap`(\/)    | Converts a range into a max-heap.                                           | `std::make_heap(begin, end);`    | \(O(n)\)       | Prepares the container for heap operations.                                                              |
+| `std::push_heap`(\/)    | Adds a new element to the heap while maintaining the heap property.         | `std::push_heap(begin, end);`    | \(O(\log n)\)  | Element must first be added to the container before calling this function.                               |
+| `std::pop_heap`(\/)     | Removes the largest element and places it at the end of the range.          | `std::pop_heap(begin, end);`     | \(O(\log n)\)  | Does not shrink the container; use `pop_back` for removal.                                               |
+| `std::sort_heap`(\/)    | Sorts a max-heap in ascending order.                                        | `std::sort_heap(begin, end);`    | \(O(n \log n)\)| Converts a heap into a sorted range.                                                                    |
+| `std::is_heap`(\/)      | Checks if the range satisfies the heap property.                            | `std::is_heap(begin, end);`      | \(O(n)\)       | Useful for verifying heap correctness.                                                                   |
+| `std::is_heap_until`(\/)| Finds the largest prefix of the range that satisfies the heap property.     | `std::is_heap_until(begin, end);`| \(O(n)\)       | Returns an iterator to the first element where the heap property is violated.                            |
+
+distance(vec.begin(), it) is a function in the C++ Standard Template Library (STL) used to calculate the number of elements (or "distance") between two iterators in a range.
+
+---
+
+### **Key Notes**
+1. **Heap Type**:
+   - By default, STL heap operations create **max-heaps**.
+   - For **min-heaps**, use a custom comparator: `std::make_heap(begin, end, std::greater<>());`.
+
+2. **Headers Required**:
+   - Include `<algorithm>` and `<vector>` for these operations.
+
+3. **Typical Workflow**:
+   - Start with `std::make_heap` to initialize.
+   - Use `std::push_heap` and `std::pop_heap` to manipulate.
+   - Call `std::sort_heap` to sort the heap when done.
+
+Would you like an example for custom comparators or additional scenarios?

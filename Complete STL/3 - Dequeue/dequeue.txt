@@ -1,0 +1,71 @@
+Here’s a list of the **most commonly used member functions** of `std::deque` (double-ended queue) in C++, categorized based on their functionality. These functions are essential for effectively working with the `deque` container:
+
+---
+
+### **1. Accessing Elements**
+- **`at(index)`**: Returns the element at the specified position with bounds checking.  
+  - Example:
+    ```cpp
+    std::deque<int> dq = {10, 20, 30};
+    std::cout << dq.at(1); // Outputs 20
+    ```
+
+- **`operator[]`**: Accesses the element at the specified position without bounds checking.  
+- **`front()`**: Accesses the first element.  
+- **`back()`**: Accesses the last element.
+
+---
+
+### **2. Modifying the Deque**
+- **`push_front(value)`**: Inserts an element at the front.  
+- **`push_back(value)`**: Inserts an element at the back.  
+- **`pop_front()`**: Removes the first element.  
+- **`pop_back()`**: Removes the last element.  
+- **`insert(iterator, value)`**: Inserts an element at the specified position.  
+- **`emplace(iterator, args...)`**: Constructs and inserts an element at the specified position.  
+- **`emplace_front(args...)`**: Constructs and inserts an element at the front.  
+- **`emplace_back(args...)`**: Constructs and inserts an element at the back.  
+- **`erase(iterator)` / `erase(start_iterator, end_iterator)`**: Removes an element or a range of elements.  
+- **`clear()`**: Removes all elements.  
+- **`resize(new_size, value)`**: Resizes the deque, adding `value` if expanding.
+
+---
+
+### **3. Capacity**
+- **`size()`**: Returns the number of elements in the deque.  
+- **`max_size()`**: Returns the maximum possible number of elements.  
+- **`empty()`**: Checks if the deque contains any elements.  
+- **`shrink_to_fit()`**: Reduces unused capacity (optional, rarely used).
+
+---
+
+### **4. Iterators**
+- **`begin()` / `end()`**: Iterators to the first/last element.  
+- **`rbegin()` / `rend()`**: Reverse iterators to the last/first element.  
+- **`cbegin()` / `cend()`**: Constant iterators for read-only traversal.  
+- **`crbegin()` / `crend()`**: Constant reverse iterators.
+
+---
+
+### **Top 10 Most Commonly Used Functions**
+If you’re focusing on frequently used operations:
+1. **`push_back(value)`**: Adds an element to the back.(\/)
+2. **`push_front(value)`**: Adds an element to the front.(\/)
+- **`insert(iterator, value)`**: Inserts an element at the specified position.(\/)
+3. **`pop_back()`**: Removes the last element.  (\/)
+4. **`pop_front()`**: Removes the first element.(\/)
+5. **`at(index) and [] `**: Access elements with bounds checking.(\/)
+6. **`size()`**: Returns the number of elements.  (\/)
+7. **`empty()`**: Checks if the deque is empty.  (\/)
+8. **`front()`**: Accesses the first element. (\/) 
+9. **`back()`**: Accesses the last element.  (\/)
+10. **`erase(iterator)`**: Removes elements.(\/)
+
+---
+
+### **Why Use `std::deque`?**
+`std::deque` is ideal when:
+1. You need **efficient insertion/removal** at both the front and back (unlike `std::vector` which is efficient only at the back).  
+2. Random access is needed (unlike `std::list`).
+
+If you'd like detailed examples for any of these functions, let me know!

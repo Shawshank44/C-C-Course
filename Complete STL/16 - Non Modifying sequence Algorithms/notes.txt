@@ -1,0 +1,172 @@
+Non-modifying sequence algorithms in the C++ Standard Template Library (STL) are used to inspect or examine elements of a range without modifying them. Here is a complete list of the most commonly used non-modifying sequence algorithms, along with brief descriptions:
+
+---
+
+### 1. **`all_of`**
+   - **Purpose**: Checks if all elements in a range satisfy a given predicate.
+   - **Example**:
+     ```cpp
+     #include <algorithm>
+     #include <vector>
+     #include <iostream>
+
+     int main() {
+         std::vector<int> v = {2, 4, 6, 8};
+         bool result = std::all_of(v.begin(), v.end(), [](int x) { return x % 2 == 0; });
+         std::cout << (result ? "All even" : "Not all even") << '\n';
+     }
+     ```
+
+---
+
+### 2. **`any_of`**
+   - **Purpose**: Checks if any element in a range satisfies a given predicate.
+   - **Example**:
+     ```cpp
+     std::any_of(v.begin(), v.end(), [](int x) { return x > 5; });
+     ```
+
+---
+
+### 3. **`none_of`**
+   - **Purpose**: Checks if no elements in a range satisfy a given predicate.
+   - **Example**:
+     ```cpp
+     std::none_of(v.begin(), v.end(), [](int x) { return x < 0; });
+     ```
+
+---
+
+### 4. **`for_each`**
+   - **Purpose**: Applies a function to each element in a range.
+   - **Example**:
+     ```cpp
+     std::for_each(v.begin(), v.end(), [](int &x) { std::cout << x << " "; });
+     ```
+
+---
+
+### 5. **`count`**
+   - **Purpose**: Counts the occurrences of a specific value in a range.
+   - **Example**:
+     ```cpp
+     int count = std::count(v.begin(), v.end(), 6);
+     ```
+
+---
+
+### 6. **`count_if`**
+   - **Purpose**: Counts the number of elements satisfying a given predicate.
+   - **Example**:
+     ```cpp
+     int count = std::count_if(v.begin(), v.end(), [](int x) { return x > 5; });
+     ```
+
+---
+
+### 7. **`mismatch`**
+   - **Purpose**: Finds the first position where two ranges differ.
+   - **Example**:
+     ```cpp
+     auto result = std::mismatch(v1.begin(), v1.end(), v2.begin());
+     ```
+
+---
+
+### 8. **`equal`**
+   - **Purpose**: Checks if two ranges are equal.
+   - **Example**:
+     ```cpp
+     bool isEqual = std::equal(v1.begin(), v1.end(), v2.begin());
+     ```
+
+---
+
+### 9. **`find`**
+   - **Purpose**: Searches for the first occurrence of a specific value in a range.
+   - **Example**:
+     ```cpp
+     auto it = std::find(v.begin(), v.end(), 6);
+     ```
+
+---
+
+### 10. **`find_if`**
+   - **Purpose**: Searches for the first element satisfying a given predicate.
+   - **Example**:
+     ```cpp
+     auto it = std::find_if(v.begin(), v.end(), [](int x) { return x > 5; });
+     ```
+
+---
+
+### 11. **`find_if_not`**
+   - **Purpose**: Searches for the first element that does **not** satisfy a given predicate.
+   - **Example**:
+     ```cpp
+     auto it = std::find_if_not(v.begin(), v.end(), [](int x) { return x < 10; });
+     ```
+
+---
+
+### 12. **`search`**
+   - **Purpose**: Finds the first occurrence of a subsequence in a range.
+   - **Example**:
+     ```cpp
+     auto it = std::search(v1.begin(), v1.end(), v2.begin(), v2.end());
+     ```
+
+---
+
+### 13. **`adjacent_find`**
+   - **Purpose**: Finds the first occurrence of two consecutive elements that are equal (or satisfy a given predicate).
+   - **Example**:
+     ```cpp
+     auto it = std::adjacent_find(v.begin(), v.end());
+     ```
+
+---
+
+### 14. **`distance`**
+   - **Purpose**: Returns the number of elements between two iterators.
+   - **Example**:
+     ```cpp
+     auto dist = std::distance(v.begin(), it);
+     ```
+
+---
+
+### Summary Table
+
+| **Algorithm**     | **Purpose**                                |
+|--------------------|--------------------------------------------|
+| `all_of`          | Checks if all elements satisfy a predicate |
+| `any_of`          | Checks if any element satisfies a predicate|
+| `none_of`         | Checks if no elements satisfy a predicate  |
+| `for_each`        | Applies a function to each element         |
+| `count`           | Counts occurrences of a value              |
+| `count_if`        | Counts elements satisfying a predicate     |
+| `mismatch`        | Finds first position where ranges differ   |
+| `equal`           | Checks if two ranges are equal             |
+| `find`            | Finds the first occurrence of a value      |
+| `find_if`         | Finds the first element satisfying a predicate|
+| `find_if_not`     | Finds the first element not satisfying a predicate|
+| `search`          | Finds first occurrence of a subsequence    |
+| `adjacent_find`   | Finds two consecutive equal elements        |
+| `distance`        | Returns distance between two iterators     |
+
+Let me know if you want detailed examples or explanations for any specific algorithm!
+
+
+Here's the information organized as a table for easy reference:
+
+| Function     | Purpose                                                         | Use Case                                                                                     |
+|--------------|-----------------------------------------------------------------|----------------------------------------------------------------------------------------------|
+| `find`(\/)   | Finds the first occurrence of a value in a range.               | Check if a value exists in a container (e.g., finding an element in a list or array).         |
+| `count`(\/)  | Counts the occurrences of a value in a range.                   | Determine how many times a specific element appears in a container (e.g., counting characters in a string). |
+| `find_if`(\/)| Finds the first element satisfying a predicate.                 | Find the first element that meets a condition (e.g., first number greater than 10 in a list).  |
+| `any_of`(\/) | Checks if any element satisfies a predicate.                    | Check if any element in a range meets a specific condition (e.g., if any number in a list is negative). |
+| `all_of`(\/) | Checks if all elements satisfy a predicate.                     | Validate that every element in a collection satisfies a condition (e.g., checking if all elements are even). |
+| `for_each`(\/)| Applies a function to each element.                            | Apply an operation or transformation to all elements in a collection.                        |
+| `search`(\/) | Finds first occurrence of a subsequence    |
+This table summarizes the most commonly used functions in C++ for checking and manipulating elements in containers. Let me know if you'd like more examples or explanations!

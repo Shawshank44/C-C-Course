@@ -1,0 +1,240 @@
+### **Priority Queue STL in C++**
+
+The **Priority Queue** in the C++ Standard Template Library (STL) is a container adapter that provides functionality similar to a **heap**. It is designed to retrieve the **highest priority element** efficiently. By default, the largest element is considered to have the highest priority (max-heap). You can also configure it to work as a min-heap.
+
+---
+
+### **Key Characteristics**
+1. **Heap-Based Implementation**: The underlying container is a heap (typically a binary heap).
+2. **Priority-Based Retrieval**: Elements are ordered such that the highest-priority element can be accessed in constant time.
+3. **Efficient Operations**:
+   - **Insertion**: O(log N)
+   - **Access to the Top Element**: O(1)
+   - **Removal of the Top Element**: O(log N)
+
+---
+
+### **Header File**
+To use `std::priority_queue`, include the header:
+```cpp
+#include <queue>
+```
+
+---
+
+### **Default Behavior (Max-Heap)**
+In a default `std::priority_queue`, the largest element is considered the highest priority.
+
+- **Example**:
+    ```cpp
+    std::priority_queue<int> pq;
+    pq.push(10);
+    pq.push(20);
+    pq.push(5);
+    // Elements in pq: 20, 10, 5 (internally stored as a max-heap)
+    ```
+
+---
+
+### **Min-Heap Configuration**
+To configure a min-heap, use a **greater-than comparator**:
+```cpp
+#include <queue>
+#include <vector>
+std::priority_queue<int, std::vector<int>, std::greater<int>> minHeap;
+```
+
+---
+
+### **Common Member Functions**
+
+#### **1. `push()`**
+Adds an element to the priority queue.
+- **Complexity**: O(log N)
+- **Example**:
+    ```cpp
+    pq.push(15);
+    ```
+
+#### **2. `pop()`**
+Removes the top (highest-priority) element.
+- **Complexity**: O(log N)
+- **Example**:
+    ```cpp
+    pq.pop(); // Removes the largest (or smallest, in a min-heap) element.
+    ```
+
+#### **3. `top()`**
+Returns the top (highest-priority) element without removing it.
+- **Complexity**: O(1)
+- **Example**:
+    ```cpp
+    int x = pq.top(); // Access the highest-priority element.
+    ```
+
+#### **4. `empty()`**
+Checks if the priority queue is empty.
+- **Complexity**: O(1)
+- **Example**:
+    ```cpp
+    if (pq.empty()) {
+        std::cout << "Priority queue is empty.\n";
+    }
+    ```
+
+#### **5. `size()`**
+Returns the number of elements in the priority queue.
+- **Complexity**: O(1)
+- **Example**:
+    ```cpp
+    std::cout << "Size: " << pq.size() << "\n";
+    ```
+
+---
+
+### **Example: Priority Queue Operations**
+```cpp
+#include <iostream>
+#include <queue>
+#include <vector>
+
+int main() {
+    std::priority_queue<int> maxHeap;
+
+    // Push elements
+    maxHeap.push(10);
+    maxHeap.push(30);
+    maxHeap.push(20);
+
+    // Display top element
+    std::cout << "Top element: " << maxHeap.top() << "\n";
+
+    // Pop the top element
+    maxHeap.pop();
+    std::cout << "After pop, top element: " << maxHeap.top() << "\n";
+
+    // Check size
+    std::cout << "Size: " << maxHeap.size() << "\n";
+
+    // Check if empty
+    if (maxHeap.empty()) {
+        std::cout << "Priority queue is empty.\n";
+    } else {
+        std::cout << "Priority queue is not empty.\n";
+    }
+
+    return 0;
+}
+```
+
+**Output**:
+```
+Top element: 30
+After pop, top element: 20
+Size: 2
+Priority queue is not empty.
+```
+
+---
+
+### **Example: Min-Heap**
+```cpp
+#include <iostream>
+#include <queue>
+#include <vector>
+
+int main() {
+    // Min-heap using greater comparator
+    std::priority_queue<int, std::vector<int>, std::greater<int>> minHeap;
+
+    // Push elements
+    minHeap.push(10);
+    minHeap.push(30);
+    minHeap.push(20);
+
+    // Display top element
+    std::cout << "Top element: " << minHeap.top() << "\n";
+
+    // Pop the top element
+    minHeap.pop();
+    std::cout << "After pop, top element: " << minHeap.top() << "\n";
+
+    return 0;
+}
+```
+
+**Output**:
+```
+Top element: 10
+After pop, top element: 20
+```
+
+---
+
+### **Custom Comparators**
+For custom data types or priorities, you can use a custom comparator.
+
+**Example**:
+```cpp
+#include <iostream>
+#include <queue>
+#include <vector>
+
+struct Job {
+    int id;
+    int priority;
+
+    // Constructor
+    Job(int id, int priority) : id(id), priority(priority) {}
+};
+
+// Custom comparator for min-heap
+struct CompareJob {
+    bool operator()(const Job& a, const Job& b) {
+        return a.priority > b.priority; // Higher priority = smaller value
+    }
+};
+
+int main() {
+    std::priority_queue<Job, std::vector<Job>, CompareJob> pq;
+
+    // Push elements
+    pq.emplace(1, 5); // Job ID: 1, Priority: 5
+    pq.emplace(2, 1); // Job ID: 2, Priority: 1
+    pq.emplace(3, 3); // Job ID: 3, Priority: 3
+
+    while (!pq.empty()) {
+        Job j = pq.top();
+        std::cout << "Job ID: " << j.id << ", Priority: " << j.priority << "\n";
+        pq.pop();
+    }
+
+    return 0;
+}
+```
+
+**Output**:
+```
+Job ID: 2, Priority: 1
+Job ID: 3, Priority: 3
+Job ID: 1, Priority: 5
+```
+
+---
+
+### **Most Used Member Functions in `std::priority_queue`**
+
+1. **`push()`**: Adds an element to the priority queue.(\/)
+2. **`pop()`**: Removes the top (highest-priority) element.(\/)
+3. **`top()`**: Accesses the top element without removing it.(\/)
+4. **`size()`**: Returns the number of elements.(\/)
+5. **`empty()`**: Checks if the priority queue is empty.(\/)
+6. **`emplace()`**: Constructs and adds a new element in-place at the correct position.(\/)
+
+---
+
+### **Limitations**
+1. **Limited Access**: Only the top element is directly accessible.
+2. **No Iterators**: You cannot traverse the elements in the container directly.
+
+Let me know if you'd like further clarification or examples!

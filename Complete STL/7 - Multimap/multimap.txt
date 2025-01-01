@@ -1,0 +1,160 @@
+Here’s a list of the **most commonly used member functions** in `std::multimap`, categorized by functionality. These functions are essential for working with associative containers that allow **duplicate keys**.
+
+---
+
+### **1. Inserting and Modifying Elements**
+- **`insert(pair)`**: Inserts a key-value pair into the multimap. Duplicate keys are allowed.  
+  - Example:
+    ```cpp
+    std::multimap<int, std::string> m;
+    m.insert({1, "Apple"});
+    m.insert({1, "Orange"}); // Duplicate key
+    ```
+
+- **`emplace(key, value)`**: Constructs and inserts a key-value pair directly.  
+  - Example:
+    ```cpp
+    m.emplace(2, "Banana");
+    ```
+
+- **`erase(key)`**: Removes all elements with the specified key.  
+  - Example:
+    ```cpp
+    m.erase(1); // Removes all elements with key = 1
+    ```
+
+- **`clear()`**: Removes all elements from the multimap.  
+  - Example:
+    ```cpp
+    m.clear();
+    ```
+
+- **`swap(other_multimap)`**: Swaps the contents of two multimaps.
+
+---
+
+### **2. Lookup**
+- **`find(key)`**: Returns an iterator to the first element with the specified key, or `end()` if the key doesn’t exist.  
+  - Example:
+    ```cpp
+    auto it = m.find(1);
+    if (it != m.end()) {
+        std::cout << it->second;
+    }
+    ```
+
+- **`count(key)`**: Returns the number of elements with the given key.  
+  - Example:
+    ```cpp
+    std::cout << "Count of key 1: " << m.count(1);
+    ```
+
+- **`equal_range(key)`**: Returns a pair of iterators defining the range of elements with the given key.  
+  - Example:
+    ```cpp
+    auto range = m.equal_range(1);
+    for (auto it = range.first; it != range.second; ++it) {
+        std::cout << it->second << " ";
+    }
+    ```
+
+---
+
+### **3. Iterators**
+- **`begin()` / `end()`**: Iterators to the first and one-past-the-last element, respectively.  
+- **`cbegin()` / `cend()`**: Constant iterators for read-only traversal.  
+- **`rbegin()` / `rend()`**: Reverse iterators to the last and one-before-the-first element.
+
+---
+
+### **4. Capacity**
+- **`size()`**: Returns the number of elements in the multimap.  
+  - Example:
+    ```cpp
+    std::cout << "Size: " << m.size();
+    ```
+
+- **`empty()`**: Checks if the multimap is empty.  
+  - Example:
+    ```cpp
+    if (m.empty()) {
+        std::cout << "Multimap is empty.";
+    }
+    ```
+
+- **`max_size()`**: Returns the maximum number of elements the multimap can theoretically hold.
+
+---
+
+### **Top 10 Most Commonly Used Functions**
+If you're focusing on the most frequent operations:
+1. **`insert(pair)`**: Insert key-value pairs.(\/)
+2. **`emplace(key, value)`**: Efficiently construct and insert key-value pairs.(\/)
+3. **`find(key)`**: Locate the first element with a specific key.(\/)
+4. **`erase(key)`**: Remove all elements with a specific key.(\/)
+5. **`size()`**: Get the number of elements in the multimap.(\/)
+6. **`empty()`**: Check if the multimap is empty.(\/)
+7. **`begin()` / `end()`**: Iterate through the multimap.(\/)
+8. **`count(key)`**: Get the number of elements with a specific key.(\/)
+9. **`equal_range(key)`**: Get a range of elements for a specific key.(\/)
+10. **`clear()`**: Remove all elements from the multimap.(\/)
+
+---
+
+### **Why Use `std::multimap`?**
+- **Duplicate Keys**: Unlike `std::map`, `std::multimap` allows multiple elements with the same key.
+- **Ordered Elements**: Keys are stored in sorted order.
+- **Logarithmic Complexity**: Insertion, deletion, and lookup are **O(log n)**.
+
+---
+
+### Example of Common Operations
+```cpp
+#include <iostream>
+#include <map>
+
+int main() {
+    std::multimap<int, std::string> m;
+
+    // Insert elements
+    m.insert({1, "Apple"});
+    m.insert({1, "Orange"});
+    m.insert({2, "Banana"});
+
+    // Print all elements
+    for (const auto& pair : m) {
+        std::cout << pair.first << ": " << pair.second << "\n";
+    }
+
+    // Find elements by key
+    auto it = m.find(1);
+    if (it != m.end()) {
+        std::cout << "\nFirst element with key 1: " << it->second;
+    }
+
+    // Count elements by key
+    std::cout << "\nNumber of elements with key 1: " << m.count(1);
+
+    // Range of elements with key
+    auto range = m.equal_range(1);
+    std::cout << "\nElements with key 1: ";
+    for (auto it = range.first; it != range.second; ++it) {
+        std::cout << it->second << " ";
+    }
+
+    return 0;
+}
+```
+
+**Output**:
+```
+1: Apple
+1: Orange
+2: Banana
+
+First element with key 1: Apple
+Number of elements with key 1: 2
+Elements with key 1: Apple Orange
+```
+
+Let me know if you need further details or examples!

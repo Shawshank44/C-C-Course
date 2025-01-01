@@ -1,0 +1,171 @@
+Here’s a list of the **most commonly used member functions** in `std::multiset`, an associative container that stores elements in **sorted order** and allows **duplicate values**.
+
+---
+
+### **1. Insertion and Modification**
+- **`insert(value)`**: Inserts an element into the multiset. Duplicate values are allowed.  
+  - Example:
+    ```cpp
+    std::multiset<int> ms;
+    ms.insert(10);
+    ms.insert(10); // Duplicate value
+    ```
+
+- **`emplace(value)`**: Constructs and inserts a value directly, avoiding unnecessary copying.  
+  - Example:
+    ```cpp
+    ms.emplace(20);
+    ```
+
+- **`erase(value)`**: Removes all elements with the specified value.  
+  - Example:
+    ```cpp
+    ms.erase(10); // Removes all elements with value 10
+    ```
+
+- **`clear()`**: Removes all elements from the multiset.  
+  - Example:
+    ```cpp
+    ms.clear();
+    ```
+
+- **`swap(other_multiset)`**: Swaps the contents of two multisets.
+
+---
+
+### **2. Lookup**
+- **`find(value)`**: Returns an iterator to the first element equal to `value`, or `end()` if no such element exists.  
+  - Example:
+    ```cpp
+    auto it = ms.find(10);
+    if (it != ms.end()) {
+        std::cout << "Found: " << *it;
+    }
+    ```
+
+- **`count(value)`**: Returns the number of elements with the given value.  
+  - Example:
+    ```cpp
+    std::cout << "Count of 10: " << ms.count(10);
+    ```
+
+- **`lower_bound(value)`**: Returns an iterator to the first element not less than `value`.  
+  - Example:
+    ```cpp
+    auto it = ms.lower_bound(10);
+    ```
+
+- **`upper_bound(value)`**: Returns an iterator to the first element greater than `value`.  
+  - Example:
+    ```cpp
+    auto it = ms.upper_bound(10);
+    ```
+
+- **`equal_range(value)`**: Returns a pair of iterators defining the range of elements equivalent to `value`.  
+  - Example:
+    ```cpp
+    auto range = ms.equal_range(10);
+    for (auto it = range.first; it != range.second; ++it) {
+        std::cout << *it << " ";
+    }
+    ```
+
+---
+
+### **3. Iterators**
+- **`begin()` / `end()`**: Iterators to the first and one-past-the-last element, respectively.  
+- **`cbegin()` / `cend()`**: Constant iterators for read-only traversal.  
+- **`rbegin()` / `rend()`**: Reverse iterators to the last and one-before-the-first element.
+
+---
+
+### **4. Capacity**
+- **`size()`**: Returns the number of elements in the multiset.  
+  - Example:
+    ```cpp
+    std::cout << "Size: " << ms.size();
+    ```
+
+- **`empty()`**: Checks if the multiset is empty.  
+  - Example:
+    ```cpp
+    if (ms.empty()) {
+        std::cout << "Multiset is empty.";
+    }
+    ```
+
+- **`max_size()`**: Returns the maximum number of elements the multiset can theoretically hold.
+
+---
+
+### **Top 10 Most Commonly Used Functions**
+If you're focusing on the most frequently used operations:
+1. **`insert(value)`**: Add elements to the multiset.(\/)
+2. **`emplace(value)`**: Efficiently construct and insert elements.(\/)
+3. **`find(value)`**: Locate the first occurrence of a specific value.(\/)
+4. **`count(value)`**: Get the number of elements with a specific value.(\/)
+5. **`erase(value)`**: Remove all elements with a specific value.(\/)
+6. **`size()`**: Get the number of elements in the multiset.(\/)
+7. **`empty()`**: Check if the multiset is empty.(\/)
+8. **`begin()` / `end()`**: Iterate through the multiset.(\/)
+9. **`lower_bound(value)`**: Find the first element not less than the given value.(\/)
+10. **`equal_range(value)`**: Get the range of elements equal to a specific value.(\/)
+
+---
+
+### **Why Use `std::multiset`?**
+- **Duplicate Values**: Unlike `std::set`, `std::multiset` allows multiple identical elements.
+- **Ordered Elements**: Automatically keeps elements sorted.
+- **Logarithmic Complexity**: Most operations (insert, erase, find) run in **O(log n)**.
+
+---
+
+### Example of Common Operations
+```cpp
+#include <iostream>
+#include <set>
+
+int main() {
+    std::multiset<int> ms;
+
+    // Insert elements
+    ms.insert(10);
+    ms.insert(20);
+    ms.insert(10); // Duplicate
+    ms.insert(15);
+
+    // Print all elements
+    for (const auto& elem : ms) {
+        std::cout << elem << " ";
+    }
+    // Output: 10 10 15 20
+
+    // Count occurrences of a value
+    std::cout << "\nCount of 10: " << ms.count(10);
+
+    // Find elements
+    auto it = ms.find(15);
+    if (it != ms.end()) {
+        std::cout << "\nFound: " << *it;
+    }
+
+    // Range of elements with the same value
+    auto range = ms.equal_range(10);
+    std::cout << "\nElements equal to 10: ";
+    for (auto it = range.first; it != range.second; ++it) {
+        std::cout << *it << " ";
+    }
+
+    return 0;
+}
+```
+
+**Output**:
+```
+10 10 15 20
+Count of 10: 2
+Found: 15
+Elements equal to 10: 10 10
+```
+
+Let me know if you'd like further explanations or more examples!

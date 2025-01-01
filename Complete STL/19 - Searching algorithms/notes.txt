@@ -1,0 +1,170 @@
+The Standard Template Library (STL) in C++ provides several utilities for implementing and using searching algorithms efficiently. Here's a breakdown of commonly used STL functions for searching:
+
+---
+
+### **1. `std::find`**
+- **Purpose**: Finds the first occurrence of a value in a range.
+- **Prototype**: 
+  ```cpp
+  std::find(InputIterator first, InputIterator last, const T& value);
+  ```
+- **Usage Example**:
+  ```cpp
+  #include <iostream>
+  #include <algorithm>
+  #include <vector>
+
+  int main() {
+      std::vector<int> vec = {10, 20, 30, 40, 50};
+      auto it = std::find(vec.begin(), vec.end(), 30);
+
+      if (it != vec.end())
+          std::cout << "Element found at index: " << std::distance(vec.begin(), it) << "\n";
+      else
+          std::cout << "Element not found\n";
+
+      return 0;
+  }
+  ```
+
+---
+
+### **2. `std::binary_search`**
+- **Purpose**: Checks if a value exists in a **sorted range**.
+- **Prototype**:
+  ```cpp
+  std::binary_search(RandomAccessIterator first, RandomAccessIterator last, const T& value);
+  ```
+- **Usage Example**:
+  ```cpp
+  #include <iostream>
+  #include <algorithm>
+  #include <vector>
+
+  int main() {
+      std::vector<int> vec = {10, 20, 30, 40, 50};
+      if (std::binary_search(vec.begin(), vec.end(), 30))
+          std::cout << "Element found\n";
+      else
+          std::cout << "Element not found\n";
+
+      return 0;
+  }
+  ```
+
+---
+
+### **3. `std::lower_bound` and `std::upper_bound`**
+- **Purpose**: These functions work with sorted ranges:
+  - `lower_bound`: Returns an iterator pointing to the first element not less than the given value.
+  - `upper_bound`: Returns an iterator pointing to the first element greater than the given value.
+
+- **Prototypes**:
+  ```cpp
+  std::lower_bound(RandomAccessIterator first, RandomAccessIterator last, const T& value);
+  std::upper_bound(RandomAccessIterator first, RandomAccessIterator last, const T& value);
+  ```
+
+- **Usage Example**:
+  ```cpp
+  #include <iostream>
+  #include <algorithm>
+  #include <vector>
+
+  int main() {
+      std::vector<int> vec = {10, 20, 30, 30, 40, 50};
+
+      auto lb = std::lower_bound(vec.begin(), vec.end(), 30);
+      auto ub = std::upper_bound(vec.begin(), vec.end(), 30);
+
+      std::cout << "Lower bound index: " << std::distance(vec.begin(), lb) << "\n";
+      std::cout << "Upper bound index: " << std::distance(vec.begin(), ub) << "\n";
+
+      return 0;
+  }
+  ```
+
+---
+
+### **4. `std::equal_range`**
+- **Purpose**: Finds the range of equal elements in a sorted container.
+- **Prototype**:
+  ```cpp
+  std::equal_range(RandomAccessIterator first, RandomAccessIterator last, const T& value);
+  ```
+- **Usage Example**:
+  ```cpp
+  #include <iostream>
+  #include <algorithm>
+  #include <vector>
+
+  int main() {
+      std::vector<int> vec = {10, 20, 30, 30, 40, 50};
+      auto range = std::equal_range(vec.begin(), vec.end(), 30);
+
+      std::cout << "Range of 30: [" 
+                << std::distance(vec.begin(), range.first) << ", "
+                << std::distance(vec.begin(), range.second) << ")\n";
+
+      return 0;
+  }
+  ```
+
+---
+
+### **5. `std::search`**
+- **Purpose**: Finds the first occurrence of a subsequence within a range.
+- **Prototype**:
+  ```cpp
+  std::search(InputIterator first1, InputIterator last1,
+              ForwardIterator first2, ForwardIterator last2);
+  ```
+- **Usage Example**:
+  ```cpp
+  #include <iostream>
+  #include <algorithm>
+  #include <vector>
+
+  int main() {
+      std::vector<int> vec = {10, 20, 30, 40, 50};
+      std::vector<int> subseq = {30, 40};
+
+      auto it = std::search(vec.begin(), vec.end(), subseq.begin(), subseq.end());
+
+      if (it != vec.end())
+          std::cout << "Subsequence found at index: " << std::distance(vec.begin(), it) << "\n";
+      else
+          std::cout << "Subsequence not found\n";
+
+      return 0;
+  }
+  ```
+
+---
+
+These algorithms are highly optimized and leverage iterator types, ensuring compatibility with most STL containers. Choose the appropriate function based on your use case and container type.
+
+
+Here’s a concise table summarizing the STL searching functions for your notes:
+
+| **Function**         | **Purpose**                                                                                  | **Input Requirements**             | **Return Value**                            | **Example Use Case**                           |
+|-----------------------|----------------------------------------------------------------------------------------------|-------------------------------------|---------------------------------------------|------------------------------------------------|
+| `std::find`(\/)           | Finds the first occurrence of a value in a range.                                            | Any container (unsorted/sorted).   | Iterator to the element or `end()` if not found. | Find a specific number in a vector.            |
+| `std::binary_search`(\/)  | Checks if a value exists in a **sorted range**.                                              | Sorted range.                      | `true` if found, `false` otherwise.         | Verify if a key exists in a sorted array.      |
+| `std::lower_bound`(\/)    | Finds the first position where the value can be inserted without breaking sorting.           | Sorted range.                      | Iterator to the first element ≥ value.      | Find the first occurrence of a duplicate key.  |
+| `std::upper_bound`(\/)    | Finds the position where the value would go if inserted **after all equal elements**.        | Sorted range.                      | Iterator to the first element > value.      | Find the last occurrence of a duplicate key.   |
+| `std::equal_range`(\/)    | Finds the range of all elements equal to a given value in a sorted container.                | Sorted range.                      | Pair of iterators (`first`, `last`).        | Find all duplicates of a specific value.       |
+| `std::search`(\/)         | Finds the first occurrence of a subsequence within a range.                                  | Any container.                     | Iterator to the start of the subsequence or `end()`. | Locate a pattern (subsequence) in a sequence.  |
+
+---
+
+### **Key Notes:**
+1. **Iterators**: 
+   - These functions operate using iterators, making them compatible with most STL containers (`vector`, `list`, `array`, etc.).
+2. **Sorted vs. Unsorted**:
+   - Functions like `std::binary_search`, `std::lower_bound`, `std::upper_bound`, and `std::equal_range` require sorted data for correct results.
+   - Functions like `std::find` and `std::search` work on unsorted data as well.
+3. **Efficiency**:
+   - `std::find` and `std::search` have linear time complexity, while the sorted-range functions generally have logarithmic complexity.
+
+Feel free to incorporate this table into your notes for quick reference!

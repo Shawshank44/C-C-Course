@@ -1,0 +1,182 @@
+The C++ Standard Template Library (STL) provides powerful and efficient functions for sorting data. The primary sorting algorithm in STL is the **`std::sort`** function, which is implemented using a hybrid of Quick Sort, Heap Sort, and Insertion Sort for optimal performance. There are also other sorting utilities like **`std::stable_sort`**, **`std::partial_sort`**, and **`std::nth_element`**. Here's an overview:
+
+---
+
+### 1. **`std::sort`**
+- **Description**: Sorts a range of elements in ascending order by default.
+- **Complexity**: \(O(n \log n)\).
+- **Syntax**:  
+  ```cpp
+  std::sort(begin_iterator, end_iterator);
+  std::sort(begin_iterator, end_iterator, compare_function);
+  ```
+- **Example**:
+  ```cpp
+  #include <iostream>
+  #include <vector>
+  #include <algorithm>
+
+  int main() {
+      std::vector<int> nums = {5, 2, 9, 1, 5, 6};
+
+      // Sort in ascending order
+      std::sort(nums.begin(), nums.end());
+
+      // Sort in descending order
+      std::sort(nums.begin(), nums.end(), std::greater<int>());
+
+      for (int num : nums) {
+          std::cout << num << " ";
+      }
+      return 0;
+  }
+  ```
+
+---
+
+### 2. **`std::stable_sort`**
+- **Description**: Maintains the relative order of equivalent elements.
+- **Complexity**: \(O(n \log^2 n)\).
+- **Syntax**:  
+  ```cpp
+  std::stable_sort(begin_iterator, end_iterator);
+  std::stable_sort(begin_iterator, end_iterator, compare_function);
+  ```
+- **Example**:
+  ```cpp
+  #include <iostream>
+  #include <vector>
+  #include <algorithm>
+
+  struct Student {
+      std::string name;
+      int grade;
+  };
+
+  bool compareByGrade(const Student& a, const Student& b) {
+      return a.grade < b.grade;
+  }
+
+  int main() {
+      std::vector<Student> students = {{"Alice", 90}, {"Bob", 85}, {"Eve", 90}};
+
+      std::stable_sort(students.begin(), students.end(), compareByGrade);
+
+      for (const auto& student : students) {
+          std::cout << student.name << ": " << student.grade << "\n";
+      }
+      return 0;
+  }
+  ```
+
+---
+
+### 3. **`std::partial_sort`**
+- **Description**: Partially sorts the range such that the smallest \(k\) elements are sorted.
+- **Complexity**: \(O(n \log k)\).
+- **Syntax**:  
+  ```cpp
+  std::partial_sort(begin_iterator, middle_iterator, end_iterator);
+  std::partial_sort(begin_iterator, middle_iterator, end_iterator, compare_function);
+  ```
+- **Example**:
+  ```cpp
+  #include <iostream>
+  #include <vector>
+  #include <algorithm>
+
+  int main() {
+      std::vector<int> nums = {5, 2, 9, 1, 5, 6};
+
+      // Partially sort the first 3 elements
+      std::partial_sort(nums.begin(), nums.begin() + 3, nums.end());
+
+      for (int num : nums) {
+          std::cout << num << " ";
+      }
+      return 0;
+  }
+  ```
+
+---
+
+### 4. **`std::nth_element`**
+- **Description**: Rearranges elements so that the \(n\)-th element is in its correct position in the sorted sequence.
+- **Complexity**: \(O(n)\) on average.
+- **Syntax**:  
+  ```cpp
+  std::nth_element(begin_iterator, nth_iterator, end_iterator);
+  std::nth_element(begin_iterator, nth_iterator, end_iterator, compare_function);
+  ```
+- **Example**:
+  ```cpp
+  #include <iostream>
+  #include <vector>
+  #include <algorithm>
+
+  int main() {
+      std::vector<int> nums = {5, 2, 9, 1, 5, 6};
+
+      // Put the 3rd smallest element in the correct position
+      std::nth_element(nums.begin(), nums.begin() + 2, nums.end());
+
+      std::cout << "3rd smallest element: " << nums[2] << "\n";
+      return 0;
+  }
+  ```
+
+---
+
+### 5. **`std::is_sorted`**
+- **Description**: Checks if a range is sorted.
+- **Syntax**:  
+  ```cpp
+  std::is_sorted(begin_iterator, end_iterator);
+  std::is_sorted(begin_iterator, end_iterator, compare_function);
+  ```
+- **Example**:
+  ```cpp
+  #include <iostream>
+  #include <vector>
+  #include <algorithm>
+
+  int main() {
+      std::vector<int> nums = {1, 2, 3, 4, 5};
+
+      if (std::is_sorted(nums.begin(), nums.end())) {
+          std::cout << "The array is sorted!\n";
+      }
+      return 0;
+  }
+  ```
+
+---
+
+### Key Takeaways:
+- **`std::sort`** is the most commonly used for general sorting.
+- Use **`std::stable_sort`** when maintaining the relative order of equal elements is crucial.
+- Use **`std::partial_sort`** and **`std::nth_element`** for selective sorting.
+- Use **`std::is_sorted`** for checking order without re-sorting.
+
+Let me know if you'd like help with any specific example!
+
+Here's a table summarizing all the STL sorting-related functions for your notes:
+
+| **Function**            | **Description**                                                                                      | **Syntax**                                                                                       | **Complexity**          | **Use Case**                                                                                                                                     |
+|--------------------------|------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|--------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
+| **`std::sort`**(\/)          | Sorts elements in ascending order by default or based on a comparator.                              | `std::sort(begin, end);`<br>`std::sort(begin, end, compare);`                                   | \(O(n \log n)\)          | General-purpose sorting where order of equivalent elements does not matter.                                                                     |
+| **`std::stable_sort`**(\/)   | Sorts elements while maintaining the relative order of equivalent elements.                         | `std::stable_sort(begin, end);`<br>`std::stable_sort(begin, end, compare);`                    | \(O(n \log^2 n)\)        | When stability (relative order) is important.                                                                                                   |
+| **`std::partial_sort`**(\/)  | Partially sorts the range so that the smallest \(k\) elements are sorted.                           | `std::partial_sort(begin, middle, end);`<br>`std::partial_sort(begin, middle, end, compare);`  | \(O(n \log k)\)          | Useful when only the top \(k\) smallest/largest elements are needed.                                                                            |
+| **`std::nth_element`**(\/)   | Rearranges elements so that the \(n\)-th element is in its sorted position.                         | `std::nth_element(begin, nth, end);`<br>`std::nth_element(begin, nth, end, compare);`          | \(O(n)\) (average case)  | When only the \(n\)-th smallest/largest element is required, not the full sort.                                                                |
+| **`std::is_sorted`**(\/)     | Checks if a range is sorted in ascending order (or based on a comparator).                          | `std::is_sorted(begin, end);`<br>`std::is_sorted(begin, end, compare);`                        | \(O(n)\)                | To verify whether the range is already sorted without performing a sort.                                                                        |
+
+---
+
+### Example Note:
+- **Preferred Function**: Use `std::sort` for general sorting tasks due to its efficiency and simplicity.  
+- **Special Cases**:  
+  - Use `std::stable_sort` when stability is critical.  
+  - Use `std::partial_sort` or `std::nth_element` for selective sorting to optimize performance.  
+  - Use `std::is_sorted` to check order without modifying the range.
+
+Would you like a downloadable version of this table?

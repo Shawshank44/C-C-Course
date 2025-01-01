@@ -1,0 +1,61 @@
+Here’s a list of the **most commonly used member functions** in the `std::vector` container, organized based on typical use cases. These functions are frequently encountered in real-world C++ programming and competitive programming:
+
+---
+
+### **1. Accessing Elements**
+- **`at(index)`**: Returns the element at the specified index with bounds checking.  
+- **`operator[]`**: Accesses the element at the specified index without bounds checking (faster but less safe).  
+- **`front()`**: Accesses the first element of the vector.  
+- **`back()`**: Accesses the last element of the vector.  
+- **`data()`**: Returns a pointer to the underlying array for low-level operations.
+
+---
+
+### **2. Modifying the Vector**
+- **`push_back(value)`**: Appends an element to the end of the vector.  
+- **`pop_back()`**: Removes the last element of the vector.  
+- **`insert(iterator, value)`**: Inserts an element at the specified position.  
+- **`emplace_back(args...)`**: Constructs and appends an element at the end (avoids unnecessary copying).  
+- **`emplace(iterator, args...)`**: Constructs and inserts an element at the specified position.  
+- **`erase(iterator)` / `erase(start_iterator, end_iterator)`**: Removes an element or a range of elements.  
+- **`clear()`**: Removes all elements from the vector.  
+- **`assign(count, value)`**: Replaces all elements with `count` copies of `value`.  
+- **`resize(new_size)`**: Changes the size of the vector, filling new elements with default values if expanded.  
+- **`swap(other_vector)`**: Swaps the contents of two vectors.
+
+---
+
+### **3. Capacity and Size**
+- **`size()`**: Returns the number of elements currently in the vector.  
+- **`capacity()`**: Returns the total number of elements the vector can hold without resizing.  
+- **`reserve(new_capacity)`**: Reserves memory for at least `new_capacity` elements.  
+- **`empty()`**: Checks if the vector contains any elements.  
+- **`shrink_to_fit()`**: Reduces memory usage by releasing unused capacity.
+
+---
+
+### **4. Iterators**
+- **`begin()`**: Returns an iterator to the first element.  
+- **`end()`**: Returns an iterator to the position after the last element.  
+- **`rbegin()` / `rend()`**: Returns a reverse iterator to the last/first element, respectively.  
+- **`cbegin()` / `cend()`**: Returns constant iterators for read-only traversal.  
+- **`crbegin()` / `crend()`**: Returns constant reverse iterators for read-only traversal.
+
+---
+
+### **Top 10 Most Commonly Used Functions**
+If you are just getting started or want to know the absolute essentials:
+1. **`push_back()`**: To add elements. (\/)
+2. **`pop_back()`**: To remove the last element.(\/)
+3. **`size()`**: To check how many elements are in the vector.(\/)
+4. **`empty()`**: To check if the vector is empty.(\/)
+5. **`at(index)`**: To access elements safely.(\/)
+6. **`operator[]`**: To access elements quickly without bounds checking.(\/)
+7. **`begin()` / `end()`**: For iterating through the vector.(\/)
+8. **`clear()`**: To remove all elements from the vector.(\/)
+9. **`insert(iterator, value)`**: To insert elements at a specific position.(\/)
+10. **`erase(iterator)`**: To remove elements.(\/)
+
+---
+
+These functions are sufficient for most tasks involving `std::vector`. Let me know if you’d like examples for any specific ones!

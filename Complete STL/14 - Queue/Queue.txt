@@ -1,0 +1,166 @@
+### **Queue STL in C++**
+
+The **Queue** in the C++ Standard Template Library (STL) is a container adapter designed to operate in a **First-In-First-Out (FIFO)** manner. Elements are inserted at the **back** and removed from the **front**, making it suitable for scenarios like scheduling or buffering.
+
+The `std::queue` container adapter uses an underlying container (default is `std::deque`) to provide its functionality. It can also use other containers like `std::list`.
+
+---
+
+### **Key Characteristics**
+1. **FIFO Order**: The first element added is the first to be removed.
+2. **Efficient Operations**: Operations like `push`, `pop`, `front`, and `back` are fast.
+3. **Underlying Container**: The default container is `std::deque`, but it can be customized.
+
+---
+
+### **Header File**
+To use `std::queue`, include the header:
+```cpp
+#include <queue>
+```
+
+---
+
+### **Common Member Functions**
+
+Here are the most commonly used functions in the `std::queue` class:
+
+#### **1. `push()`**
+Adds an element to the back of the queue.
+- **Complexity**: O(1)
+- **Example**:
+    ```cpp
+    std::queue<int> q;
+    q.push(10); // Adds 10
+    q.push(20); // Adds 20
+    ```
+
+#### **2. `pop()`**
+Removes the front element from the queue.
+- **Complexity**: O(1)
+- **Example**:
+    ```cpp
+    q.pop(); // Removes 10 (the front element)
+    ```
+
+#### **3. `front()`**
+Accesses the element at the front of the queue.
+- **Complexity**: O(1)
+- **Example**:
+    ```cpp
+    std::cout << "Front element: " << q.front() << "\n";
+    ```
+
+#### **4. `back()`**
+Accesses the element at the back of the queue.
+- **Complexity**: O(1)
+- **Example**:
+    ```cpp
+    std::cout << "Back element: " << q.back() << "\n";
+    ```
+
+#### **5. `empty()`**
+Checks if the queue is empty.
+- **Complexity**: O(1)
+- **Example**:
+    ```cpp
+    if (q.empty()) {
+        std::cout << "Queue is empty.\n";
+    }
+    ```
+
+#### **6. `size()`**
+Returns the number of elements in the queue.
+- **Complexity**: O(1)
+- **Example**:
+    ```cpp
+    std::cout << "Queue size: " << q.size() << "\n";
+    ```
+
+---
+
+### **Example: Queue Operations**
+```cpp
+#include <iostream>
+#include <queue>
+
+int main() {
+    std::queue<int> q;
+
+    // Push elements
+    q.push(10);
+    q.push(20);
+    q.push(30);
+
+    // Display front and back elements
+    std::cout << "Front element: " << q.front() << "\n";
+    std::cout << "Back element: " << q.back() << "\n";
+
+    // Pop the front element
+    q.pop();
+    std::cout << "After pop, front element: " << q.front() << "\n";
+
+    // Check size
+    std::cout << "Queue size: " << q.size() << "\n";
+
+    // Check if empty
+    if (q.empty()) {
+        std::cout << "Queue is empty.\n";
+    } else {
+        std::cout << "Queue is not empty.\n";
+    }
+
+    return 0;
+}
+```
+
+**Output**:
+```
+Front element: 10
+Back element: 30
+After pop, front element: 20
+Queue size: 2
+Queue is not empty.
+```
+
+---
+
+### **Most Used Member Functions in Queue STL**
+
+1. **`push()`**: Adds an element to the back of the queue.(\/)
+2. **`emplace()`** : function in std::queue is used to construct an element in place at the back of the queue.(\/)
+3. **`pop()`**: Removes the front element.(\/)
+4. **`front()`**: Accesses the front element.(\/)
+5. **`back()`**: Accesses the back element.(\/)
+6. **`size()`**: Returns the number of elements.(\/)
+7. **`empty()`**: Checks if the queue is empty.(\/)
+
+---
+
+### **Customizing the Underlying Container**
+
+By default, `std::queue` uses `std::deque` as the underlying container, but it can be customized to use other containers like `std::list` or `std::vector`.
+
+- **Using `std::list`**:
+    ```cpp
+    std::queue<int, std::list<int>> q;
+    ```
+
+- **Using `std::vector`** (not recommended for queues due to inefficiency in front operations):
+    ```cpp
+    std::queue<int, std::vector<int>> q;
+    ```
+
+---
+
+### **When to Use `std::queue`**
+- **FIFO Order**: Suitable when elements need to be processed in the order they are added.
+- **Efficient Insertions and Deletions**: Supports fast push and pop operations.
+
+---
+
+### **Limitations of Queue**
+1. **Limited Access**: You can only access the front and back elements; no direct access to elements in between.
+2. **No Iterators**: `std::queue` does not support iterators for traversal.
+
+Let me know if you'd like more examples or explanations!

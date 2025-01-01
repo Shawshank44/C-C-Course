@@ -1,0 +1,187 @@
+Here’s a list of the **most commonly used member functions** in `std::unordered_map`, a hash-based associative container in C++ that stores key-value pairs. Unlike `std::map`, it does not keep the elements sorted and provides average **O(1)** complexity for insertion, deletion, and access.
+
+---
+
+### **1. Inserting and Modifying Elements**
+- **`insert(pair)`**: Inserts a key-value pair into the unordered map. If the key already exists, it won’t overwrite the value.  
+  - Example:
+    ```cpp
+    std::unordered_map<int, std::string> um;
+    um.insert({1, "Apple"});
+    ```
+
+- **`emplace(key, value)`**: Constructs and inserts a key-value pair directly, avoiding unnecessary copying.  
+  - Example:
+    ```cpp
+    um.emplace(2, "Banana");
+    ```
+
+- **`operator[]`**: Accesses or inserts a value by key. If the key doesn’t exist, it inserts a new key with a default value.  
+  - Example:
+    ```cpp
+    um[3] = "Cherry"; // Inserts key 3 with value "Cherry"
+    ```
+
+- **`at(key)`**: Accesses the value associated with the key. Throws an exception if the key doesn’t exist.  
+  - Example:
+    ```cpp
+    std::cout << um.at(1);
+    ```
+
+- **`erase(key)`**: Removes the element with the specified key.  
+  - Example:
+    ```cpp
+    um.erase(1); // Removes the key-value pair with key = 1
+    ```
+
+- **`clear()`**: Removes all elements from the unordered map.  
+  - Example:
+    ```cpp
+    um.clear();
+    ```
+
+- **`swap(other_unordered_map)`**: Swaps the contents of two unordered maps.
+
+---
+
+### **2. Lookup**
+- **`find(key)`**: Returns an iterator to the element with the specified key, or `end()` if the key doesn’t exist.  
+  - Example:
+    ```cpp
+    auto it = um.find(2);
+    if (it != um.end()) {
+        std::cout << it->second;
+    }
+    ```
+
+- **`count(key)`**: Returns 1 if the key exists, 0 otherwise. (Since `unordered_map` doesn’t allow duplicate keys, the count is always 0 or 1.)  
+  - Example:
+    ```cpp
+    if (um.count(2)) {
+        std::cout << "Key 2 exists.";
+    }
+    ```
+
+---
+
+### **3. Iterators**
+- **`begin()` / `end()`**: Iterators to the first and one-past-the-last element, respectively.  
+- **`cbegin()` / `cend()`**: Constant iterators for read-only traversal.  
+
+---
+
+### **4. Capacity**
+- **`size()`**: Returns the number of elements in the unordered map.  
+  - Example:
+    ```cpp
+    std::cout << "Size: " << um.size();
+    ```
+
+- **`empty()`**: Checks if the unordered map is empty.  
+  - Example:
+    ```cpp
+    if (um.empty()) {
+        std::cout << "Unordered map is empty.";
+    }
+    ```
+
+- **`max_size()`**: Returns the maximum number of elements the unordered map can theoretically hold.
+
+---
+
+### **5. Hash Policy**
+- **`bucket_count()`**: Returns the number of buckets in the container.
+- **`load_factor()`**: Returns the load factor (elements per bucket).
+- **`rehash(n)`**: Reorganizes the hash table to have at least `n` buckets.
+- **`reserve(n)`**: Prepares the container to hold at least `n` elements without rehashing.
+
+---
+
+### **Top 10 Most Commonly Used Functions**
+If you're focusing on frequently used operations:
+1. **`insert(pair)`**: Add key-value pairs to the unordered map.(\/)
+2. **`operator[]`**: Access or insert elements by key.(\/)
+3. **`emplace(key, value)`**: Efficiently construct and insert elements.(\/)
+4. **`find(key)`**: Locate an element by its key.(\/)
+5. **`erase(key)`**: Remove an element by its key.(\/)
+6. **`size()`**: Get the number of elements.(\/)
+7. **`empty()`**: Check if the unordered map is empty.(\/)
+8. **`clear()`**: Remove all elements from the unordered map.(\/)
+9. **`count(key)`**: Check if a key exists.(\/)
+10. **`at(key)`**: Access an element safely by key.(\/)
+
+---
+
+### **Why Use `std::unordered_map`?**
+- **Fast Access**: Average **O(1)** for lookup, insertion, and deletion.
+- **Non-Sorted**: Elements are not stored in any specific order, which makes it faster than `std::map` for large datasets.
+- **Duplicate Keys Not Allowed**: Each key in `std::unordered_map` is unique.
+
+---
+
+### Example of Common Operations
+```cpp
+#include <iostream>
+#include <unordered_map>
+
+int main() {
+    std::unordered_map<int, std::string> um;
+
+    // Insert elements
+    um.insert({1, "Apple"});
+    um[2] = "Banana";
+    um.emplace(3, "Cherry");
+
+    // Access elements
+    std::cout << "Key 1: " << um.at(1) << "\n";
+    std::cout << "Key 2: " << um[2] << "\n";
+
+    // Check existence
+    if (um.count(3)) {
+        std::cout << "Key 3 exists.\n";
+    }
+
+    // Remove element
+    um.erase(1);
+
+    // Iterate through the unordered map
+    for (const auto& pair : um) {
+        std::cout << pair.first << ": " << pair.second << "\n";
+    }
+
+    return 0;
+}
+```
+
+**Output**:
+```
+Key 1: Apple
+Key 2: Banana
+Key 3 exists.
+2: Banana
+3: Cherry
+```
+
+Let me know if you’d like more details or advanced examples!
+
+
+Reasons Why begin() and end() Are Not in the Top 10
+Not Specific to unordered_map:
+
+begin() and end() are part of the common interface of all STL containers (e.g., std::vector, std::set, etc.).
+The most-used lists often highlight operations specific to a container (like find() and count() for unordered_map).
+Indirect Usage via Range-Based Loops:
+
+In modern C++, range-based for loops make explicit calls to begin() and end() less common.
+cpp
+Copy code
+for (const auto& pair : um) {
+    std::cout << pair.first << ": " << pair.second << "\n";
+}
+This loop internally uses begin() and end(), but the user doesn’t need to call them explicitly.
+Lookup Operations Are More Frequent:
+
+The primary use case for unordered_map is fast key-based access. Functions like find(), at(), and operator[] are more frequently used because they directly cater to this use case.
+Iteration Is Secondary:
+
+While iterating through elements is common in some cases, the main strength of unordered_map is efficient key-value pair access, not traversal.
