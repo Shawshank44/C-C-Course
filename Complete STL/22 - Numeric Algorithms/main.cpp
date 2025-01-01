@@ -64,7 +64,7 @@ int main(){
     */
 
    
-    // 5. std::iota : (sequence of numbers)
+    // 5. std::iota : (adds sequence of numbers)
     std::vector<int> sequence(5);
     std::iota(sequence.begin(), sequence.end(), 10); // Starts from 10 Fills: {10, 11, 12, 13, 14}
     std::cout << "Iota (Sequential Values): ";
