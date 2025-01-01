@@ -17,7 +17,7 @@ int main(){
     vector<int> v1 = {1, 2, 4, 6};
     vector<int> v2 = {2, 3, 4, 7};
 
-    // Containers to store results
+    // Containers to store results :
     vector<int> union_result;
     vector<int> intersection_result;
     vector<int> difference_result;
