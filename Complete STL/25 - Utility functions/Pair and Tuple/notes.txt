@@ -1,0 +1,172 @@
+
+
+The C++ Standard Template Library (STL) provides utility functions to work with `std::pair` and `std::tuple`, which are designed to store multiple values in a single object. Here’s a summary of commonly used utility functions and techniques:
+
+---
+
+### **Pair Utility Functions**
+`std::pair` is a container that holds two heterogeneous values.
+
+1. **`std::make_pair`**  
+   Creates a `std::pair` without explicitly specifying the types.  
+   ```cpp
+   #include <iostream>
+   #include <utility>
+
+   int main() {
+       auto p = std::make_pair(1, "Alice");
+       std::cout << "First: " << p.first << ", Second: " << p.second << "\n";
+       return 0;
+   }
+   ```
+
+2. **Accessing `std::pair` Elements**
+   - `.first`: Access the first element.
+   - `.second`: Access the second element.
+
+3. **Comparison Operators**
+   - `==, !=, <, <=, >, >=`: Compare `std::pair` lexicographically based on `first` and `second`.  
+   ```cpp
+   std::pair<int, int> p1 = {1, 2}, p2 = {1, 3};
+   if (p1 < p2) std::cout << "p1 is less than p2\n";
+   ```
+
+---
+
+### **Tuple Utility Functions**
+`std::tuple` is more general and can store more than two values of heterogeneous types.
+
+1. **`std::make_tuple`**  
+   Creates a `std::tuple` without explicitly specifying the types.  
+   ```cpp
+   #include <iostream>
+   #include <tuple>
+
+   int main() {
+       auto t = std::make_tuple(1, "Bob", 3.14);
+       std::cout << "Tuple created.\n";
+       return 0;
+   }
+   ```
+
+2. **`std::tie`**  
+   Deconstructs a tuple into individual variables (useful for unpacking).  
+   ```cpp
+   auto t = std::make_tuple(1, "Charlie", 3.14);
+   int id;
+   const char* name;
+   double value;
+   std::tie(id, name, value) = t;
+   std::cout << "ID: " << id << ", Name: " << name << ", Value: " << value << "\n";
+   ```
+
+3. **`std::get<N>`**  
+   Access the N-th element of a tuple (0-based indexing).  
+   ```cpp
+   auto t = std::make_tuple(10, 20.5, "Daisy");
+   std::cout << "Second element: " << std::get<1>(t) << "\n";
+   ```
+
+4. **Comparison Operators**
+   - Similar to `std::pair`, tuples support lexicographical comparison with `==, !=, <, <=, >, >=`.
+
+5. **`std::tuple_size` and `std::tuple_element`**  
+   - `std::tuple_size`: Get the size (number of elements) of the tuple at compile-time.
+   - `std::tuple_element`: Get the type of a specific element at compile-time.  
+   ```cpp
+   std::tuple<int, double, char> t;
+   constexpr size_t size = std::tuple_size<decltype(t)>::value; // size = 3
+   using Type0 = std::tuple_element<0, decltype(t)>::type; // Type0 = int
+   ```
+
+---
+
+### **Common Operations on Pair and Tuple**
+
+1. **Swapping**  
+   - Use `std::swap` to exchange the contents of two pairs or tuples.
+   ```cpp
+   std::pair<int, int> p1 = {1, 2}, p2 = {3, 4};
+   std::swap(p1, p2);
+   ```
+
+2. **Structured Binding (C++17 and Later)**  
+   Unpack pairs or tuples into individual variables.  
+   ```cpp
+   auto [a, b] = std::make_pair(5, 10); // Pair unpacking
+   auto [x, y, z] = std::make_tuple(1, 2.5, "Hello"); // Tuple unpacking
+   ```
+
+3. **Concatenating Tuples (C++17 and Later)**  
+   Combine two tuples into one using `std::tuple_cat`.  
+   ```cpp
+   auto t1 = std::make_tuple(1, 2);
+   auto t2 = std::make_tuple(3.14, "Hello");
+   auto t3 = std::tuple_cat(t1, t2);
+   ```
+
+---
+
+### Examples
+
+#### Example 1: Using Pair
+```cpp
+#include <iostream>
+#include <utility>
+
+int main() {
+    std::pair<int, std::string> person(25, "John");
+    std::cout << "Age: " << person.first << ", Name: " << person.second << "\n";
+    return 0;
+}
+```
+
+#### Example 2: Using Tuple
+```cpp
+#include <iostream>
+#include <tuple>
+
+int main() {
+    auto t = std::make_tuple(42, 3.14, "Alice");
+    std::cout << "First: " << std::get<0>(t) << ", Second: " << std::get<1>(t)
+              << ", Third: " << std::get<2>(t) << "\n";
+    return 0;
+}
+```
+
+These utilities make `std::pair` and `std::tuple` versatile and efficient tools for managing small collections of heterogeneous data.
+
+
+Here’s a table summarizing the utility functions for **`std::pair`** and **`std::tuple`** in C++ STL:
+
+---
+
+### **Table: Utility Functions for `std::pair`**
+
+| **Function/Feature**  | **Description**                                                                                  | **Example**                                                                                              |
+|------------------------|--------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|
+| `std::make_pair`(\/)       | Creates a pair without explicitly specifying types.                                             | `auto p = std::make_pair(1, "Alice");`                                                                  |
+| `.first`(\/)               | Access the first element of the pair.                                                          | `std::cout << p.first;`                                                                                 |
+| `.second`(\/)              | Access the second element of the pair.                                                         | `std::cout << p.second;`                                                                                |
+| Comparison Operators       | Compares two pairs lexicographically (`==, !=, <, <=, >, >=`).                                  | `if (p1 < p2) std::cout << "p1 is less than p2";`                                                       |
+| `std::swap`(\/)                | Swaps the contents of two pairs.                                                               | `std::swap(p1, p2);`                                                                                    |
+
+---
+
+### **Table: Utility Functions for `std::tuple`**
+
+| **Function/Feature**          | **Description**                                                                                          | **Example**                                                                                              |
+|-------------------------------|----------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|
+| `std::make_tuple`(\/)         | Creates a tuple without explicitly specifying types.                                                    | `auto t = std::make_tuple(1, "Bob", 3.14);`                                                             |
+| `std::get<N>`(\/)             | Access the N-th element of the tuple (0-based indexing).                                                | `std::cout << std::get<1>(t);`                                                                          |
+| `std::tie`(\/)                | Deconstructs a tuple into separate variables (useful for unpacking).                                    | `std::tie(id, name, value) = t;`                                                                        |
+| Structured Binding            | Unpacks the tuple into variables using structured binding (C++17 and later).                           | `auto [x, y, z] = t;`                                                                                   |
+| `std::tuple_size`(\/)         | Returns the size (number of elements) of a tuple at compile-time.                                       | `std::cout << std::tuple_size<decltype(t)>::value;`                                                     |
+| `std::tuple_element`(\/)      | Provides the type of a specific element at compile-time.                                                | `using Type0 = std::tuple_element<0, decltype(t)>::type;`                                               |
+| Comparison Operators          | Compares two tuples lexicographically (`==, !=, <, <=, >, >=`).                                         | `if (t1 < t2) std::cout << "t1 is less than t2";`                                                       |
+| `std::swap`(\/)               | Swaps the contents of two tuples.                                                                       | `std::swap(t1, t2);`                                                                                    |
+| `std::tuple_cat`(\/)          | Concatenates multiple tuples into one (C++17 and later).                                                | `auto t3 = std::tuple_cat(t1, t2);`                                                                     |
+
+---
+
+This concise reference highlights the main utilities for `std::pair` and `std::tuple`, making it easier to use these tools effectively in your programs.
