@@ -1,0 +1,173 @@
+
+
+The C++ Standard Template Library (STL) provides various utility functions to perform common tasks efficiently. Here's a categorized list of commonly used utility functions in STL with brief descriptions and examples:  
+
+---
+
+### 1. **Pair and Tuple Utilities**
+- **`std::pair`**: Combines two values into a single entity.
+- **`std::make_pair`**: Creates a `std::pair` object.
+- **`std::tie`**: Unpacks tuple-like structures into variables.
+- **`std::tuple`**: Combines multiple values of different types.
+- **`std::make_tuple`**: Creates a `std::tuple` object.
+- **`std::get`**: Accesses elements in a `std::pair` or `std::tuple`.
+
+**Example**:
+```cpp
+#include <iostream>
+#include <tuple>
+#include <utility>
+
+int main() {
+    std::pair<int, std::string> p = std::make_pair(1, "Hello");
+    std::cout << p.first << " " << p.second << "\n";
+
+    auto t = std::make_tuple(1, 2.5, "World");
+    std::cout << std::get<0>(t) << " " << std::get<2>(t) << "\n";
+
+    int x;
+    double y;
+    std::string z;
+    std::tie(x, y, z) = t;
+    std::cout << x << " " << y << " " << z << "\n";
+
+    return 0;
+}
+```
+
+---
+
+### 2. **Relational Functions**
+- **`std::min`**: Returns the smaller of two values.
+- **`std::max`**: Returns the larger of two values.
+- **`std::minmax`**: Returns both minimum and maximum.
+- **`std::clamp`**: Restricts a value within a range.
+
+**Example**:
+```cpp
+#include <iostream>
+#include <algorithm>
+
+int main() {
+    int a = 5, b = 10;
+    std::cout << "Min: " << std::min(a, b) << "\n";
+    std::cout << "Max: " << std::max(a, b) << "\n";
+
+    auto result = std::minmax(3, 8);
+    std::cout << "Min: " << result.first << ", Max: " << result.second << "\n";
+
+    int value = 15;
+    std::cout << "Clamped: " << std::clamp(value, 0, 10) << "\n";
+
+    return 0;
+}
+```
+
+---
+
+### 3. **Comparison Utilities**
+- **`std::equal`**: Checks if two ranges are equal.
+- **`std::lexicographical_compare`**: Compares two ranges lexicographically.
+
+**Example**:
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int main() {
+    std::vector<int> v1 = {1, 2, 3};
+    std::vector<int> v2 = {1, 2, 3};
+
+    if (std::equal(v1.begin(), v1.end(), v2.begin())) {
+        std::cout << "Vectors are equal\n";
+    }
+
+    std::vector<int> v3 = {1, 2, 4};
+    if (std::lexicographical_compare(v1.begin(), v1.end(), v3.begin(), v3.end())) {
+        std::cout << "v1 is lexicographically smaller than v3\n";
+    }
+
+    return 0;
+}
+```
+
+---
+
+### 4. **Move and Swap Utilities**
+- **`std::move`**: Transfers ownership of an object.
+- **`std::swap`**: Exchanges values of two objects.
+
+**Example**:
+```cpp
+#include <iostream>
+#include <utility>
+
+int main() {
+    int a = 10, b = 20;
+    std::swap(a, b);
+    std::cout << "a: " << a << ", b: " << b << "\n";
+
+    std::string s1 = "Hello";
+    std::string s2 = std::move(s1);
+    std::cout << "s2: " << s2 << ", s1: " << s1 << "\n"; // s1 is now empty
+
+    return 0;
+}
+```
+
+---
+
+### 5. **Math Utilities**
+- **`std::gcd`**: Calculates the greatest common divisor.
+- **`std::lcm`**: Calculates the least common multiple.
+- **`std::abs`**: Returns the absolute value.
+
+**Example**:
+```cpp
+#include <iostream>
+#include <numeric>
+
+int main() {
+    int a = 42, b = 56;
+    std::cout << "GCD: " << std::gcd(a, b) << "\n";
+    std::cout << "LCM: " << std::lcm(a, b) << "\n";
+
+    int c = -10;
+    std::cout << "Absolute: " << std::abs(c) << "\n";
+
+    return 0;
+}
+```
+
+---
+
+### 6. **Other Utilities**
+- **`std::exchange`**: Replaces the value of an object and returns the old value.
+- **`std::as_const`**: Converts an object to a constant reference.
+- **`std::hash`**: Generates a hash for an object.
+
+**Example**:
+```cpp
+#include <iostream>
+#include <utility>
+#include <functional>
+
+int main() {
+    int a = 10;
+    int old_value = std::exchange(a, 20);
+    std::cout << "Old value: " << old_value << ", New value: " << a << "\n";
+
+    const int& const_a = std::as_const(a);
+    std::cout << "Const value: " << const_a << "\n";
+
+    std::hash<std::string> hash_fn;
+    std::cout << "Hash of 'Hello': " << hash_fn("Hello") << "\n";
+
+    return 0;
+}
+```
+
+---
+
+These utility functions cover many practical use cases in C++ programming. They help write concise, efficient, and readable code.
