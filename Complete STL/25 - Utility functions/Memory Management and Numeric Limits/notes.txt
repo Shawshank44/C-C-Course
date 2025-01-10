@@ -1,0 +1,128 @@
+### 1. **`allocator` in C++**
+The `allocator` is a part of the Standard Template Library (STL) and is used for low-level memory management. It provides a way to allocate and deallocate memory dynamically in a generic and efficient manner. It is primarily used by STL containers like `vector`, `deque`, and `list`.
+
+#### Key Functions of `std::allocator`:
+1. **`allocate(size_type n)`**  
+   Allocates memory for `n` objects but does not construct them.
+
+2. **`deallocate(pointer p, size_type n)`**  
+   Deallocates the memory for `n` objects pointed to by `p`.
+
+3. **`construct(pointer p, const T& val)`**  
+   Constructs an object of type `T` at the memory location `p`.
+
+4. **`destroy(pointer p)`**  
+   Destroys the object of type `T` located at `p`.
+
+5. **`max_size()`**  
+   Returns the maximum number of elements that can be allocated.
+
+#### Example of `std::allocator`:
+```cpp
+#include <iostream>
+#include <memory> // For std::allocator
+
+int main() {
+    std::allocator<int> alloc;
+
+    // Allocate memory for 5 integers
+    int* arr = alloc.allocate(5);
+
+    // Construct values in allocated memory
+    for (int i = 0; i < 5; ++i) {
+        alloc.construct(&arr[i], i * 10); // Initialize arr[i] = i * 10
+    }
+
+    // Display values
+    std::cout << "Allocated and constructed values:\n";
+    for (int i = 0; i < 5; ++i) {
+        std::cout << arr[i] << " ";
+    }
+    std::cout << "\n";
+
+    // Destroy and deallocate memory
+    for (int i = 0; i < 5; ++i) {
+        alloc.destroy(&arr[i]);
+    }
+    alloc.deallocate(arr, 5);
+
+    return 0;
+}
+```
+
+---
+
+### 2. **`numeric_limits` in C++**
+The `std::numeric_limits` template class provides information about the properties of arithmetic types such as `int`, `float`, `double`, etc. It is defined in the `<limits>` header.
+
+#### Key Functions of `std::numeric_limits`:
+1. **`min()`**  
+   Returns the smallest positive value (or the lowest value for integral types).
+
+2. **`max()`**  
+   Returns the largest value for the type.
+
+3. **`lowest()`**  
+   Returns the lowest finite value for the type (useful for floating-point types).
+
+4. **`digits`**  
+   Number of digits the type can represent.
+
+5. **`epsilon()`**  
+   Returns the difference between 1 and the smallest value greater than 1 (for floating-point types).
+
+6. **`infinity()`**  
+   Returns a representation of infinity, if available.
+
+7. **`is_signed`**  
+   Tells whether the type is signed.
+
+#### Example of `std::numeric_limits`:
+```cpp
+#include <iostream>
+#include <limits>
+
+int main() {
+    // Integer limits
+    std::cout << "Integer Limits:\n";
+    std::cout << "Min: " << std::numeric_limits<int>::min() << "\n";
+    std::cout << "Max: " << std::numeric_limits<int>::max() << "\n";
+
+    // Float limits
+    std::cout << "\nFloating-Point Limits:\n";
+    std::cout << "Min: " << std::numeric_limits<float>::min() << "\n";
+    std::cout << "Max: " << std::numeric_limits<float>::max() << "\n";
+    std::cout << "Epsilon: " << std::numeric_limits<float>::epsilon() << "\n";
+
+    // Double limits
+    std::cout << "\nDouble Limits:\n";
+    std::cout << "Lowest: " << std::numeric_limits<double>::lowest() << "\n";
+    std::cout << "Infinity: " << std::numeric_limits<double>::infinity() << "\n";
+
+    return 0;
+}
+```
+
+#### Output Example:
+```
+Integer Limits:
+Min: -2147483648
+Max: 2147483647
+
+Floating-Point Limits:
+Min: 1.17549e-38
+Max: 3.40282e+38
+Epsilon: 1.19209e-07
+
+Double Limits:
+Lowest: -1.79769e+308
+Infinity: inf
+```
+
+---
+
+### Summary
+- **`std::allocator`**: Useful for low-level memory allocation, used internally by STL containers.
+- **`std::numeric_limits`**: Provides compile-time constants and properties of arithmetic types.
+
+Let me know if you’d like to see more examples or have specific use cases in mind!
