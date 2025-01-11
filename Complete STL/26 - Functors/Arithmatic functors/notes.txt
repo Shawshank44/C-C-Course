@@ -1,0 +1,78 @@
+In C++, **arithmetic functors** (also called **function objects**) are predefined function object classes provided by the `<functional>` header. These functors can perform arithmetic operations like addition, subtraction, multiplication, and division.
+
+### Common Arithmetic Functors in `<functional>`
+Here are the most commonly used arithmetic functors:
+
+| Functor Class   | Operation         | Description                  |
+|-----------------|-------------------|------------------------------|
+| `std::plus`     | Addition          | Adds two values.             |
+| `std::minus`    | Subtraction       | Subtracts one value from another. |
+| `std::multiplies` | Multiplication    | Multiplies two values.       |
+| `std::divides`  | Division          | Divides one value by another. |
+| `std::modulus`  | Modulus           | Computes remainder of division. |
+| `std::negate`   | Negation          | Negates a value (unary operator). |
+
+### Syntax and Usage
+To use these functors, include the `<functional>` header.
+
+```cpp
+#include <iostream>
+#include <functional>
+
+int main() {
+    int a = 10, b = 5;
+
+    // Using arithmetic functors
+    std::plus<int> add;
+    std::minus<int> subtract;
+    std::multiplies<int> multiply;
+    std::divides<int> divide;
+    std::modulus<int> mod;
+    std::negate<int> negate;
+
+    std::cout << "Addition: " << add(a, b) << '\n';       // 10 + 5 = 15
+    std::cout << "Subtraction: " << subtract(a, b) << '\n'; // 10 - 5 = 5
+    std::cout << "Multiplication: " << multiply(a, b) << '\n'; // 10 * 5 = 50
+    std::cout << "Division: " << divide(a, b) << '\n';    // 10 / 5 = 2
+    std::cout << "Modulus: " << mod(a, b) << '\n';        // 10 % 5 = 0
+    std::cout << "Negation: " << negate(a) << '\n';       // -10
+
+    return 0;
+}
+```
+
+### Key Points:
+1. **Template Classes**: These functors are class templates and can work with different types like `int`, `float`, or even user-defined types if operators are overloaded.
+2. **Flexibility**: Functors can be used in various STL algorithms for customized operations.
+   
+### Example with STL Algorithm
+You can use these functors with STL algorithms like `std::transform`.
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <functional> // for std::plus
+
+int main() {
+    std::vector<int> vec1 = {1, 2, 3, 4, 5};
+    std::vector<int> vec2 = {10, 20, 30, 40, 50};
+    std::vector<int> result(vec1.size());
+
+    // Add corresponding elements of vec1 and vec2
+    std::transform(vec1.begin(), vec1.end(), vec2.begin(), result.begin(), std::plus<int>());
+
+    std::cout << "Result of addition:\n";
+    for (int val : result) {
+        std::cout << val << " "; // Output: 11 22 33 44 55
+    }
+
+    return 0;
+}
+```
+
+### When to Use Arithmetic Functors
+- When working with STL algorithms for cleaner code.
+- To standardize arithmetic operations across types.
+- When functional programming paradigms are needed in C++. 
+
+Let me know if you'd like further exploration or examples!
