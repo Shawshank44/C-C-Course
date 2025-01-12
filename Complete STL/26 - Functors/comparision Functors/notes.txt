@@ -1,0 +1,99 @@
+In C++, comparison functors (or comparison function objects) in the Standard Template Library (STL) provide a way to perform custom comparisons. These functors are often used with STL algorithms like `sort`, `find_if`, and containers like `std::set` or `std::map`. Let's look at the commonly used functors and their operations:
+
+### Standard Comparison Functors in `<functional>`
+1. **`std::less`**  
+   - Compares two values to check if the first is less than the second. Equivalent to `<`.
+   - Example:
+     ```cpp
+     std::less<int> lessFunctor;
+     std::cout << lessFunctor(10, 20); // Output: 1 (true)
+     ```
+
+2. **`std::greater`**  
+   - Compares two values to check if the first is greater than the second. Equivalent to `>`.
+   - Example:
+     ```cpp
+     std::greater<int> greaterFunctor;
+     std::cout << greaterFunctor(20, 10); // Output: 1 (true)
+     ```
+
+3. **`std::less_equal`**  
+   - Compares two values to check if the first is less than or equal to the second. Equivalent to `<=`.
+   - Example:
+     ```cpp
+     std::less_equal<int> lessEqualFunctor;
+     std::cout << lessEqualFunctor(10, 10); // Output: 1 (true)
+     ```
+
+4. **`std::greater_equal`**  
+   - Compares two values to check if the first is greater than or equal to the second. Equivalent to `>=`.
+   - Example:
+     ```cpp
+     std::greater_equal<int> greaterEqualFunctor;
+     std::cout << greaterEqualFunctor(20, 20); // Output: 1 (true)
+     ```
+
+5. **`std::equal_to`**  
+   - Checks if two values are equal. Equivalent to `==`.
+   - Example:
+     ```cpp
+     std::equal_to<int> equalToFunctor;
+     std::cout << equalToFunctor(10, 10); // Output: 1 (true)
+     ```
+
+6. **`std::not_equal_to`**  
+   - Checks if two values are not equal. Equivalent to `!=`.
+   - Example:
+     ```cpp
+     std::not_equal_to<int> notEqualToFunctor;
+     std::cout << notEqualToFunctor(10, 20); // Output: 1 (true)
+     ```
+
+### Usage in STL
+Comparison functors are typically passed as arguments to STL containers or algorithms when you want to define custom sorting or comparison logic.
+
+#### Example with `std::sort`:
+```cpp
+#include <iostream>
+#include <vector>
+#include <functional> // For std::greater
+
+int main() {
+    std::vector<int> numbers = {5, 1, 4, 2, 8};
+
+    // Sorting in descending order using std::greater
+    std::sort(numbers.begin(), numbers.end(), std::greater<int>());
+
+    // Print sorted vector
+    for (int num : numbers) {
+        std::cout << num << " ";
+    }
+    return 0;
+}
+```
+**Output:**  
+`8 5 4 2 1`
+
+#### Example with `std::set`:
+```cpp
+#include <iostream>
+#include <set>
+
+int main() {
+    // A set with a custom comparator (descending order)
+    std::set<int, std::greater<int>> numbers = {5, 1, 4, 2, 8};
+
+    // Print elements in the set
+    for (int num : numbers) {
+        std::cout << num << " ";
+    }
+    return 0;
+}
+```
+**Output:**  
+`8 5 4 2 1`
+
+### Key Points
+- These functors are part of the `<functional>` header.
+- They make it easy to customize comparisons for STL algorithms and containers.
+- You can create your own custom functors if needed.
