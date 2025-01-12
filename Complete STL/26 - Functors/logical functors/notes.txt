@@ -1,0 +1,42 @@
+Here's a simple example for using `std::logical_and`, `std::logical_or`, and `std::logical_not` in C++:
+
+```cpp
+#include <iostream>
+#include <functional> // For logical functors
+
+int main() {
+    bool a = true, b = false;
+
+    // Logical AND
+    std::logical_and<bool> logicalAnd;
+    std::cout << "Logical AND (true && false): " << logicalAnd(a, b) << "\n";
+
+    // Logical OR
+    std::logical_or<bool> logicalOr;
+    std::cout << "Logical OR (true || false): " << logicalOr(a, b) << "\n";
+
+    // Logical NOT
+    std::logical_not<bool> logicalNot;
+    std::cout << "Logical NOT (!true): " << logicalNot(a) << "\n";
+
+    return 0;
+}
+```
+
+---
+
+### Output
+```
+Logical AND (true && false): 0
+Logical OR (true || false): 1
+Logical NOT (!true): 0
+```
+
+---
+
+### Explanation
+1. **`std::logical_and<bool>`**: Computes `true && false`, which is `false` (0).
+2. **`std::logical_or<bool>`**: Computes `true || false`, which is `true` (1).
+3. **`std::logical_not<bool>`**: Computes `!true`, which is `false` (0).
+
+This example directly shows how the functors work with simple boolean values. Let me know if you'd like more!
