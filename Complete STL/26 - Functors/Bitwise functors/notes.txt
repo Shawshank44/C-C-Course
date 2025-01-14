@@ -1,0 +1,132 @@
+Bitwise functors are small utility objects or structures in C++ that implement bitwise operations, typically by overloading the `operator()`. They are useful in algorithms, templates, and scenarios where function objects provide more flexibility and reusability compared to raw functions.
+
+Here’s a breakdown of common bitwise functors:
+
+### Common Bitwise Functors
+1. **Bitwise AND**
+   Performs a bitwise AND operation between two values.
+
+   ```cpp
+   struct BitwiseAND {
+       int operator()(int a, int b) const {
+           return a & b;
+       }
+   };
+   ```
+
+2. **Bitwise OR**
+   Performs a bitwise OR operation.
+
+   ```cpp
+   struct BitwiseOR {
+       int operator()(int a, int b) const {
+           return a | b;
+       }
+   };
+   ```
+
+3. **Bitwise XOR**
+   Performs a bitwise XOR operation.
+
+   ```cpp
+   struct BitwiseXOR {
+       int operator()(int a, int b) const {
+           return a ^ b;
+       }
+   };
+   ```
+
+4. **Bitwise NOT**
+   Performs a bitwise NOT operation (unary operator).
+
+   ```cpp
+   struct BitwiseNOT {
+       int operator()(int a) const {
+           return ~a;
+       }
+   };
+   ```
+
+### Example Usage
+```cpp
+#include <iostream>
+
+int main() {
+    BitwiseAND andOp;
+    BitwiseOR orOp;
+    BitwiseXOR xorOp;
+    BitwiseNOT notOp;
+
+    int a = 5;  // Binary: 0101
+    int b = 3;  // Binary: 0011
+
+    std::cout << "Bitwise AND: " << andOp(a, b) << "\n"; // 0101 & 0011 = 0001 -> 1
+    std::cout << "Bitwise OR: " << orOp(a, b) << "\n";   // 0101 | 0011 = 0111 -> 7
+    std::cout << "Bitwise XOR: " << xorOp(a, b) << "\n"; // 0101 ^ 0011 = 0110 -> 6
+    std::cout << "Bitwise NOT: " << notOp(a) << "\n";    // ~0101 = 1010 -> -6 (two's complement)
+
+    return 0;
+}
+```
+
+### Functors with Templates
+To make these functors more generic and reusable, you can use templates to operate on different types.
+
+```cpp
+template <typename T>
+struct BitwiseAND {
+    T operator()(T a, T b) const {
+        return a & b;
+    }
+};
+
+template <typename T>
+struct BitwiseOR {
+    T operator()(T a, T b) const {
+        return a | b;
+    }
+};
+
+template <typename T>
+struct BitwiseXOR {
+    T operator()(T a, T b) const {
+        return a ^ b;
+    }
+};
+
+template <typename T>
+struct BitwiseNOT {
+    T operator()(T a) const {
+        return ~a;
+    }
+};
+```
+
+### Why Use Functors?
+- **Flexibility**: Functors can maintain state if needed.
+- **Reusability**: They work well with STL algorithms, especially those requiring function objects (e.g., `std::transform`).
+- **Customizability**: You can easily extend their behavior or add logging.
+
+### Example with STL Algorithms
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int main() {
+    std::vector<int> vec1 = {1, 2, 3};
+    std::vector<int> vec2 = {3, 2, 1};
+    std::vector<int> result(vec1.size());
+
+    // Using Bitwise AND functor with transform
+    std::transform(vec1.begin(), vec1.end(), vec2.begin(), result.begin(), BitwiseAND<int>());
+
+    for (int val : result) {
+        std::cout << val << " "; // Output: 1 2 1
+    }
+
+    return 0;
+}
+```
+
+This example showcases how functors make bitwise operations concise and elegant in algorithms.
