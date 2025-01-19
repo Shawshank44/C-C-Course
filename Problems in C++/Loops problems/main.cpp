@@ -1,4 +1,5 @@
-#include <iostream> 
+#include <iostream>
+#include <cmath>
 
 using namespace std;
 
@@ -43,7 +44,7 @@ int main(){
     // }
 
 
-    // 4. Write a program to display fibonacci series upto certain number n (n is entered by the user).
+    // 4. Write a program to display fibonacci series upto certain number n (n is entered by the user).(I)
     // int num, first_num, sec_num, next;
     // first_num = 0;
     // sec_num = 1;
@@ -67,12 +68,66 @@ int main(){
     // }
 
     // cout<<" "<<endl;
-    
-    
-    
 
-    
+    // 5. Write a Program to display sum of all digits of a given number N by user.(I)
+    // int num, rem;
+    // int sum = 0;
+    // cout<<"Enter the number : ";
+    // cin>>num;
 
+    // while (num!=0)
+    // {
+    //     rem = num %10;
+    //     sum = sum + rem;
+    //     num = num / 10;
+    // }
+
+    // cout<<"Sum of the digits is "<<sum<<endl;
+    
+    // 6. Write a program to reverse a given number N by user.
+    // long int num;
+    
+    // cout<<"Enter a number : ";
+    // cin>>num;
+
+    // int rev_num = 0;
+
+    // while (num>0)
+    // {
+    //     rev_num = rev_num*10 + num%10;
+    //     num = num/10;
+    // }
+
+    // cout<<"Reverse of the given number is : "<<rev_num<<endl;
+
+    // 7. Write a program to calculate power of a number using inbuilt pow() function by taking two inputs from users as base and exponent respectively.
+    // int base, exp, result;
+
+    // cout<<"Enter the value of the base : "<<endl;
+    // cin>>base;
+    // cout<<"Enter the value of the exponent : "<<endl;
+    // cin>>exp;
+
+    // result = pow(base,exp);
+
+    // cout<<base<<"^"<<exp<<" = "<<result<<endl;
+
+    // 8. Write a program to calculate power of a number without using inbuilt pow() function by taking two inputs from users as base and exponent repectively.
+    // int base, exp;
+    // int result = 1;
+
+    // cout<<"Enter the base : ";
+    // cin>>base;
+    // cout<<"Enter the exponent : ";
+    // cin>>exp;
+
+    // for (int i = 0; i < exp; i++)
+    // {
+    //     result = result*base;
+    // }
+
+    // cout<<base<<"^"<<exp<<" = "<<result<<endl;
+    
      
     return 0;
 }
