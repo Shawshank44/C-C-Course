@@ -210,6 +210,58 @@ int main(){
     // }else{
     //     cout<<num<<" it is not a armstrong number"<<endl;
     // }
+
+    // 13. Write a program to find the GCD and HCF of two numbers entered by the user.
+    // int num1, num2, gcd;
+    // cout<<"Enter the first number : ";
+    // cin>>num1;
+    // cout<<"Enter the second number : ";
+    // cin>>num2;
+
+    // for (int i = 1; i <= num1; i++)
+    // {
+    //     if (num1 % i == 0 && num2 % i == 0)
+    //     {
+    //         gcd = i;
+    //     }
+    // }
+
+    // cout<<gcd<<" is the GCD of the given numbers"<<endl;
+    
+    // 14. Write a program to find the LCM of two numbers entered by user
+    // int num1, num2, lcm, gcd;
+    // cout<<"Enter the first number : ";
+    // cin>>num1;
+    // cout<<"Enter the second number : ";
+    // cin>>num2;
+
+    // for (int i = 1; i <= num1; i++)
+    // {
+    //     if (num1 % i == 0 && num2 % i == 0)
+    //     {
+    //         gcd = i;
+    //     }
+    // }
+
+    // lcm = num1*num2 / gcd;
+
+    // cout<<"The LCM of the given number is "<<lcm<<endl;
+
+
+    // 15. Write a program to display all factors of a number entered by the user.
+    // int num;
+    // cout<<"Enter the number : ";
+    // cin>>num;
+    // for (int i = 1; i <= num ; i++)
+    // {
+    //     if (num % i == 0)
+    //     {
+    //         cout<<i<<" ";
+    //     }
+        
+    // }
+    
+
     
     
     return 0;
