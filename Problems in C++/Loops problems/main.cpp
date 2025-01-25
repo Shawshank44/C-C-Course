@@ -127,7 +127,90 @@ int main(){
     // }
 
     // cout<<base<<"^"<<exp<<" = "<<result<<endl;
+
+    // 9. Write a program to check whether a number N entered by the user is palindrome or Not.
+    // int num,rem,temp;
+    // int reverse = 0;
+    // cout<<"Enter the number : ";
+    // cin>>num;
+    // temp=num;
+
+    // while (temp!=0)
+    // {
+    //     rem=temp%10;
+    //     reverse = reverse*10+rem;
+    //     temp=temp/10;
+    // }
+    // if (num==reverse)
+    // {
+    //     cout<<num<<" is a palindrome number "<<endl;
+    // }else{
+    //     cout<<num<<" is not a palindrome number "<<endl;
+    // }
+
+
+    // 10. Write a program to check whether a number is prime or Not
+    // int num;
+    // cout<<"Enter the number "<<endl;
+    // cin>>num;
+
+    // bool isprime = true;
+    // for (int i = 2; i < num; i++)
+    // {
+    //     if (num%i==0)
+    //     {
+    //         isprime = false;
+    //         break;
+    //     }
+    // }
+
+    // if (isprime == false)
+    // {
+    //     cout<<"It is not a prime number"<<endl;
+    // }else{
+    //     cout<<"It is a prime number"<<endl;
+    // }
+
+    // 11. Create fahrenheit to celsius table using while loop 
+    // double farh, cel, start, end;
+    // int step;
+    // cout<<"Enter the start value "<<endl;
+    // cin>>start;
+    // cout<<"Enter the end value "<<endl;
+    // cin>>end;
+    // cout<<"Enter the step value "<<endl;
+    // cin>>step;
+    // cout<<"\n Fahrenheit \t Celcius\n";
+    // farh = start;
+
+    // while (farh <= end)
+    // {
+    //     cel=(farh-32.0)*5.0/9.0;
+    //     cout<<farh<<"\t\t"<<cel<<endl;
+    //     farh = farh + step;
+    // }
+
+    // 12. Write a program to check whether a number entered by the user is an Armstrong number or not
+    // int num, rem, temp;
+    // int sum = 0;
+    // cout<<"Enter the number : ";
+    // cin>>num;
+    // temp=num;
+
+    // while (temp>0)
+    // {
+    //     rem = temp%10;
+    //     sum=sum+(rem*rem*rem);
+    //     temp=temp/10;
+    // }
+
+    // if (num == sum)
+    // {
+    //     cout<<sum<<" is the armstrong number"<<endl;
+    // }else{
+    //     cout<<num<<" it is not a armstrong number"<<endl;
+    // }
     
-     
+    
     return 0;
 }
