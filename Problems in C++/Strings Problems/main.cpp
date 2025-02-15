@@ -1,6 +1,8 @@
 #include <iostream> 
 #include <string>
 #include <cctype> // for isalpha and isdigits
+#include <vector>
+#include <unordered_map>
 using namespace std;
 
 
@@ -86,6 +88,111 @@ string ChangeToNextLetter(string & str){ // 10th question funtion
         result = result+nextletter(c);
     }
     return result;
+}
+
+string restoreString(string s, vector<int> & indices){// 11th question funtion
+    int n = s.size();
+    string result(n,' ');
+    for (int i = 0; i < n; i++)
+    {
+        result[indices[i]]=s[i];
+    }
+    return result;
+    
+}
+
+int RomanToInt(string s) {// 12th question funtion
+    unordered_map<char, int> RomanValues = {
+        {'I', 1}, {'V', 5}, {'X', 10}, {'L', 50},
+        {'C', 100}, {'D', 500}, {'M', 1000}
+    };
+
+    int result = 0; // Fixing initialization
+    for (int i = 0; i < s.length(); i++) {
+        if (i > 0 && RomanValues[s[i]] > RomanValues[s[i - 1]]) {
+            result += RomanValues[s[i]] - 2 * RomanValues[s[i - 1]];
+        } else {
+            result += RomanValues[s[i]];
+        }
+    }
+
+    return result;
+}
+
+
+bool isAnagram(string s, string t){// 13th question function
+    if (s.length()!=t.length())
+    {
+        return false;
+    }
+    int charcount[26] = {0};
+    for (char c : s)
+    {
+        charcount[c-'a']++;
+    }
+    for (char c : t)
+    {
+        if (charcount[c-'a']==0)
+        {
+            return false;
+        }
+        charcount[c-'a']--;
+    }
+    for (int i = 0; i < 26; i++)
+    {
+        if (charcount[i]!=0)
+        {
+            return false;
+        }
+        
+    }
+    return true;
+}
+
+
+int lengthOfLastword(string s){// 14th question function.
+    int length = 0;
+    int i = s.length() - 1;
+
+    while (i>=0 && s[i] == ' ')
+    {
+        i--;
+    }
+
+    while (i >=0 && s[i]!=' ')
+    {
+        length++;
+        i--;
+    }
+    return length;
+    
+    
+}
+
+string countAndSay(int n) {// 15th question function.
+    if (n == 1) return "1";
+    if (n == 2) return "11";
+
+    string s = "11";  // Start with "11"
+    
+    for (int i = 3; i <= n; i++) {  // Fix loop condition
+        string t = "";
+        int c = 1;  // Count occurrences of characters
+
+        for (int j = 1; j < s.length(); j++) {
+            if (s[j] != s[j - 1]) {
+                t += to_string(c) + s[j - 1];
+                c = 1;
+            } else {
+                c++;
+            }
+        }
+        
+        t += to_string(c) + s[s.length() - 1]; // Append last counted group
+        s = t;
+    }
+    
+    return s;
 }
 
 
@@ -230,7 +337,37 @@ int main(){
     // string transformed = ChangeToNextLetter(input);
     // cout<<"The transformed string is : "<<transformed<<endl;
     
-    
+
+    // 11. Shuffle string :
+    // string s = "code";
+    // vector<int> indices = {0,1,3,2}; // Mapping: 'c' -> 3, 'o' -> 1, 'd' -> 2, 'e' -> 0
+
+    // string restored = restoreString(s, indices);
+    // cout << "Restored string: " << restored << endl;
+
+
+    // 12. Roman To Integer:
+    // string roman = "XIII";  // Example: 14
+    // int number = RomanToInt(roman);
+    // cout << "Integer value of " << roman << " is: " << number << endl;
+
+    // 13. Valid anagrams :
+    // string s = "lit", t = "arc";
+    // if (isAnagram(s, t)) {
+    //     cout << s << " and " << t << " are anagrams!" << endl;
+    // } else {
+    //     cout << s << " and " << t << " are NOT anagrams!" << endl;
+    // }
+
+    // 14. Length of the last word
+    // string s = "Hello World  ";  // Example with trailing spaces
+    // cout << "Length of last word: " << lengthOfLastword(s) << endl;
+
+
+    // 15. count to say :
+    // int n = 5;
+    // cout << "Count and Say Sequence for n = " << n << " is: " << countAndSay(n) << endl;
+
 
      
     return 0;
