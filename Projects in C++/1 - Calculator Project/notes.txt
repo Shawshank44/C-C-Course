@@ -1,0 +1,282 @@
+This C++ program is a **simple calculator** that allows users to input multiple numbers and perform one of the four basic arithmetic operations (`+`, `-`, `*`, `/`).  
+
+The program works by:  
+1. Asking the user to **choose an operation**.  
+2. Taking **multiple number inputs** from the user until they enter `"="`.  
+3. Performing the **selected operation** on the numbers.  
+4. Displaying the **result**.  
+
+---
+
+# **Step-by-Step Explanation**
+### **1️⃣ Header Files**
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+```
+- `#include <iostream>` → For input and output (`cin`, `cout`).
+- `#include <vector>` → To store multiple numbers dynamically.
+- `using namespace std;` → So we don't have to write `std::` before `cin`, `cout`, etc.
+
+---
+
+## **2️⃣ Function Definitions**
+The program has four functions for addition, subtraction, multiplication, and division.
+
+---
+
+### **📌 Function 1: Addition**
+```cpp
+void Addition (const vector <double> &numbers){
+    if (numbers.empty()) return;  
+    double result = 0;
+    for (double num : numbers) {
+        result += num;  
+    }
+    cout<< "Result : "<<result<<endl;
+}
+```
+- Checks if the `numbers` vector is **empty** (`if (numbers.empty()) return;`).
+- Initializes `result = 0`.
+- Loops through each number in `numbers` and **adds it to `result`**.
+- Prints the final sum.
+
+Example:
+```
+Input: 10, 5, 3
+Calculation: 10 + 5 + 3 = 18
+Output: Result : 18
+```
+
+---
+
+### **📌 Function 2: Subtraction**
+```cpp
+void Subtraction(const vector<double>& numbers){
+    if (numbers.empty()) return;  
+    double result = numbers[0];  
+
+    for (auto i = 1; i < numbers.size(); ++i) {  
+        result -= numbers[i];  
+    }
+    cout<<"Result : "<<result<<endl;
+}
+```
+- Starts `result` with **first number** (`numbers[0]`).
+- Loops through the rest of `numbers` and **subtracts** each value from `result`.
+
+Example:
+```
+Input: 20, 5, 3
+Calculation: 20 - 5 - 3 = 12
+Output: Result : 12
+```
+
+---
+
+### **📌 Function 3: Multiplication**
+```cpp
+void multiply(const vector<double>& numbers){
+    if (numbers.empty()) return;  
+    double result = 1;  
+
+    for (double num : numbers) {  
+        result *= num;  
+    }
+    cout<<"Result : "<<result<<endl;
+}
+```
+- Initializes `result = 1` (multiplicative identity).
+- Loops through `numbers` and **multiplies** each value.
+
+Example:
+```
+Input: 2, 3, 4
+Calculation: 2 * 3 * 4 = 24
+Output: Result : 24
+```
+
+---
+
+### **📌 Function 4: Division**
+```cpp
+void divide(const vector<double> &numbers){
+    if(numbers.empty()) return;  
+    double result = numbers[0];  
+
+    for (auto i = 1; i < numbers.size(); ++i) {  
+        if (numbers[i] == 0) {  
+            cout<<"Error Division by zero!"<<endl;
+            return;
+        }
+        result /= numbers[i];  
+    }
+    cout<<"Result : "<<result<<endl;
+}
+```
+- Starts `result` with **first number** (`numbers[0]`).
+- Loops through **remaining numbers** and **divides** `result` by each.
+- **If any number is `0`**, it prints `"Error Division by zero!"` and exits.
+
+Example:
+```
+Input: 100, 5, 2
+Calculation: 100 / 5 / 2 = 10
+Output: Result : 10
+```
+⚠️ If the user enters `0`, it prints:
+```
+Error Division by zero!
+```
+
+---
+
+## **3️⃣ Main Function**
+```cpp
+int main(){
+    char operation;
+    cout<<"Choose operation (+, -, *, /) : ";
+    cin>>operation;
+```
+- Prompts the user to **choose an operation**.
+- Stores it in `operation`.
+
+---
+
+### **4️⃣ Taking Multiple Inputs**
+```cpp
+    vector<double> numbers;
+    double num;
+
+    cout<<"Enter numbers (enter '=' to calculate) : "<<endl;
+
+    while (true) {
+        string input;
+        cin>>input;
+```
+- Creates a **vector** `numbers` to store user inputs.
+- Reads input as a **string** (`input`) to handle `"="`.
+
+---
+
+### **5️⃣ Stopping Input on `=`**
+```cpp
+        if (input == "=") break;
+```
+- If the user enters `"="`, it **exits the loop**.
+
+---
+
+### **6️⃣ Converting Input to Number**
+```cpp
+        try {
+            num = stod(input);
+            numbers.push_back(num);
+        } catch(...) {
+            cout<<"Invalid input. try again."<<endl;
+        }
+```
+- Converts the **string** input to a `double` using `std::stod(input)`.
+- If conversion **fails** (e.g., user enters `"abc"`), it prints:
+  ```
+  Invalid input. try again.
+  ```
+  and **continues** asking for input.
+
+---
+
+### **7️⃣ Performing Calculation**
+```cpp
+    switch (operation) {
+        case '+' : Addition(numbers); break;
+        case '-' : Subtraction(numbers); break;
+        case '*' : multiply(numbers); break;
+        case '/' : divide(numbers); break;
+    }
+
+    return 0;
+}
+```
+- Calls the appropriate function based on `operation`.
+
+---
+
+# **🛠 Example Executions**
+### **Addition Example**
+```
+Choose operation (+, -, *, /) : +
+Enter numbers (enter '=' to calculate) :
+10
+5
+3
+=
+Result : 18
+```
+
+### **Subtraction Example**
+```
+Choose operation (+, -, *, /) : -
+Enter numbers (enter '=' to calculate) :
+20
+5
+3
+=
+Result : 12
+```
+
+### **Multiplication Example**
+```
+Choose operation (+, -, *, /) : *
+Enter numbers (enter '=' to calculate) :
+2
+3
+4
+=
+Result : 24
+```
+
+### **Division Example**
+```
+Choose operation (+, -, *, /) : /
+Enter numbers (enter '=' to calculate) :
+100
+5
+2
+=
+Result : 10
+```
+
+### **Invalid Input Example**
+```
+Choose operation (+, -, *, /) : +
+Enter numbers (enter '=' to calculate) :
+10
+xyz
+Invalid input. try again.
+5
+=
+Result : 15
+```
+
+---
+
+# **🔑 Summary**
+| Step | What Happens? |
+|------|--------------|
+| 1️⃣ | Ask the user for an **operation (`+`, `-`, `*`, `/`)**. |
+| 2️⃣ | Read **multiple numbers** until user enters `"="`. |
+| 3️⃣ | Convert input **from string to double** using `std::stod()`. |
+| 4️⃣ | Store numbers in a `vector<double>`. |
+| 5️⃣ | Perform the **selected operation** on all numbers. |
+| 6️⃣ | **Display the result**. |
+
+### **🔥 Key Features**
+✅ Supports **unlimited** numbers.  
+✅ Handles **invalid input** gracefully.  
+✅ Prevents **division by zero** errors.  
+✅ Uses **functions for better readability**.  
+
+This is a **simple yet efficient** calculator that can handle any number of inputs dynamically! 🚀  
+
+Let me know if you have **any doubts!** 😊
