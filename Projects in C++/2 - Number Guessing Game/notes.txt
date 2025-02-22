@@ -1,0 +1,116 @@
+Let's go step by step through the **Number Guessing Game** implementation in C++.
+
+---
+
+## **1. Include Necessary Headers**
+```cpp
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+```
+- `#include <iostream>` → For input/output operations (`std::cin`, `std::cout`).
+- `#include <cstdlib>` → For using `std::rand()` (random number generation).
+- `#include <ctime>` → To seed the random number generator with the current time.
+
+---
+
+## **2. Function to Play the Game**
+```cpp
+void playGame(int maxTries, int range) {
+    std::srand(std::time(0));  // Seed for random number generation
+    int secretNumber = std::rand() % range + 1;  // Generate a number between 1 and `range`
+    int guess, attempts = 0;
+```
+- `std::srand(std::time(0));` → Seeds the random number generator to ensure different outputs each time the game is played.
+- `std::rand() % range + 1;` → Generates a random number between **1 and `range`**.
+- `int guess, attempts = 0;` → Initializes variables to store the user’s guess and the number of attempts.
+
+---
+
+## **3. Start the Game Loop**
+```cpp
+    std::cout << "Guess the number between 1 and " << range << "!\n";
+
+    while (attempts < maxTries) {
+        std::cout << "Attempt " << attempts + 1 << "/" << maxTries << ": Enter your guess: ";
+        std::cin >> guess;
+        attempts++;
+```
+- Displays the **range** of numbers.
+- Runs a `while` loop, allowing the user **up to `maxTries` attempts**.
+- Asks the user for input and stores it in `guess`.
+- Increments `attempts` after each guess.
+
+---
+
+## **4. Check If the Guess Is Correct**
+```cpp
+        if (guess == secretNumber) {
+            std::cout << "Congratulations! You guessed the number in " << attempts << " attempts.\n";
+            return;
+        } else if (guess < secretNumber) {
+            std::cout << "Too low! Try again.\n";
+        } else {
+            std::cout << "Too high! Try again.\n";
+        }
+    }
+```
+- **If the guess is correct**, the game congratulates the player and exits (`return`).
+- **If the guess is too low**, it tells the user to guess a higher number.
+- **If the guess is too high**, it tells the user to guess a lower number.
+- The loop continues until the user either **guesses correctly** or **exhausts all attempts**.
+
+---
+
+## **5. Display Game Over Message**
+```cpp
+    std::cout << "Game over! The correct number was " << secretNumber << ".\n";
+}
+```
+- If the loop finishes without a correct guess, the game prints the correct number.
+
+---
+
+## **6. Main Function to Handle Multiple Rounds**
+```cpp
+int main() {
+    int maxTries = 5, range = 100;
+    char playAgain;
+```
+- `maxTries = 5;` → Maximum attempts allowed.
+- `range = 100;` → The random number will be between **1 and 100**.
+- `char playAgain;` → Used to check if the player wants to play again.
+
+---
+
+## **7. Game Replay Logic**
+```cpp
+    do {
+        playGame(maxTries, range);
+        std::cout << "Do you want to play again? (y/n): ";
+        std::cin >> playAgain;
+    } while (playAgain == 'y' || playAgain == 'Y');
+```
+- Runs the `playGame()` function.
+- Asks the user if they want to play again.
+- If the user enters `'y'` or `'Y'`, the game restarts.
+
+---
+
+## **8. End the Game**
+```cpp
+    std::cout << "Thanks for playing!\n";
+    return 0;
+}
+```
+- If the user chooses not to play again, the game thanks them and exits.
+
+---
+
+### **Summary of How the Game Works**
+1. The game **generates a random number** between `1` and `100`.
+2. The user has **5 chances** to guess the number.
+3. After each guess, the game provides **hints** (Too High/Too Low).
+4. If the user **guesses correctly**, they win.
+5. If they fail to guess within the allowed attempts, the game **reveals the correct number**.
+6. The game **asks if they want to play again**.
