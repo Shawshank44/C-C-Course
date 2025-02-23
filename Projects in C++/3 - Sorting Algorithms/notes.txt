@@ -1,0 +1,234 @@
+Sure! Let's go step by step with a **detailed explanation** of each sorting algorithm, including an **example walkthrough** for better understanding.
+
+---
+
+## **1. Bubble Sort**
+### **Concept:**
+- Bubble Sort repeatedly compares adjacent elements and swaps them if they are in the wrong order.
+- The largest element "bubbles up" to the last position in each pass.
+
+### **Steps:**
+1. Start from the first element.
+2. Compare it with the next element.
+   - If the first element is greater, swap them.
+3. Move to the next pair and repeat step 2 until the last element.
+4. The largest element is now at the correct position.
+5. Repeat the process for the remaining unsorted part until fully sorted.
+
+### **Example:**
+**Input:** `{5, 3, 8, 4, 2}`  
+**Pass 1:**
+- `(5,3)` → Swap → `{3, 5, 8, 4, 2}`
+- `(5,8)` → No Swap
+- `(8,4)` → Swap → `{3, 5, 4, 8, 2}`
+- `(8,2)` → Swap → `{3, 5, 4, 2, 8}`  
+  *(8 is now sorted at the last position)*  
+
+**Pass 2:**
+- `(3,5)` → No Swap
+- `(5,4)` → Swap → `{3, 4, 5, 2, 8}`
+- `(5,2)` → Swap → `{3, 4, 2, 5, 8}`  
+
+... Continue until sorted.
+
+### **Time Complexity:**
+- **Best Case (Already Sorted):** \(O(n)\)
+- **Worst & Average Case:** \(O(n^2)\) (nested loops)
+
+### **Use Case:**
+- Easy to implement but not suitable for large datasets.
+
+---
+
+## **2. Insertion Sort**
+### **Concept:**
+- Insertion Sort builds the sorted array one element at a time.
+- Each element is compared with the sorted part and inserted in the correct position.
+
+### **Steps:**
+1. Start with the second element (considering the first element as sorted).
+2. Compare it with elements before it and shift larger elements right.
+3. Insert it in the correct position.
+4. Repeat for all elements.
+
+### **Example:**
+**Input:** `{5, 3, 8, 4, 2}`  
+**Step 1:** `{5} | 3 8 4 2`  
+- Insert `3` in sorted part → `{3, 5} | 8 4 2`  
+
+**Step 2:** `{3, 5} | 8 4 2`  
+- `8` is already in order → `{3, 5, 8} | 4 2`  
+
+**Step 3:** `{3, 5, 8} | 4 2`  
+- Move `8` → `{3, 5, 8, 8} | 2`  
+- Move `5` → `{3, 5, 5, 8} | 2`  
+- Insert `4` → `{3, 4, 5, 8} | 2`  
+
+... Continue until sorted.
+
+### **Time Complexity:**
+- **Best Case:** \(O(n)\)
+- **Worst & Average Case:** \(O(n^2)\)
+
+### **Use Case:**
+- Efficient for **small datasets** or **nearly sorted data**.
+
+---
+
+## **3. Selection Sort**
+### **Concept:**
+- Selection Sort finds the smallest element and swaps it with the first unsorted element.
+
+### **Steps:**
+1. Find the smallest element.
+2. Swap it with the first element.
+3. Repeat for the remaining elements.
+
+### **Example:**
+**Input:** `{5, 3, 8, 4, 2}`  
+**Pass 1:** Find the minimum (`2`) → Swap with `5` → `{2, 3, 8, 4, 5}`  
+**Pass 2:** Find the minimum (`3`) → Already in place  
+**Pass 3:** Find the minimum (`4`) → Swap with `8` → `{2, 3, 4, 8, 5}`  
+**Pass 4:** Find the minimum (`5`) → Swap with `8` → `{2, 3, 4, 5, 8}`  
+
+### **Time Complexity:**
+- **Worst, Best & Average Case:** \(O(n^2)\)
+
+### **Use Case:**
+- Simple but not efficient for large datasets.
+
+---
+
+## **4. Merge Sort**
+### **Concept:**
+- Merge Sort uses **Divide and Conquer**.
+- It **recursively** splits the array, sorts each part, and merges them.
+
+### **Steps:**
+1. Divide the array into two halves.
+2. Recursively sort each half.
+3. Merge the sorted halves.
+
+### **Example:**
+**Input:** `{5, 3, 8, 4, 2}`  
+1. Split into `{5, 3, 8}` and `{4, 2}`
+2. Further split `{5, 3, 8}` → `{5}` `{3, 8}`  
+3. Further split `{3, 8}` → `{3}` `{8}`
+4. Merge `{3}` and `{8}` → `{3, 8}`
+5. Merge `{5}` and `{3, 8}` → `{3, 5, 8}`
+6. Split `{4, 2}` → `{4}` `{2}`
+7. Merge `{4}` `{2}` → `{2, 4}`
+8. Merge `{3, 5, 8}` `{2, 4}` → `{2, 3, 4, 5, 8}`
+
+### **Time Complexity:**
+- **Worst, Best & Average Case:** \(O(n \log n)\)  
+  (Each level splits \(O(\log n)\), merging takes \(O(n)\))
+
+### **Use Case:**
+- **Efficient for large datasets** but requires extra memory.
+
+---
+
+## **Comparison Table**
+| Algorithm | Best Case | Worst Case | Space Complexity | Stable? | Suitable for Large Data? |
+|-----------|-----------|------------|------------------|---------|---------------------------|
+| **Bubble Sort** | \(O(n)\) | \(O(n^2)\) | \(O(1)\) | Yes | No |
+| **Insertion Sort** | \(O(n)\) | \(O(n^2)\) | \(O(1)\) | Yes | No |
+| **Selection Sort** | \(O(n^2)\) | \(O(n^2)\) | \(O(1)\) | No | No |
+| **Merge Sort** | \(O(n \log n)\) | \(O(n \log n)\) | \(O(n)\) | Yes | Yes |
+
+---
+
+## **Which One to Use?**
+- **Bubble Sort & Selection Sort** → Too slow for large datasets.
+- **Insertion Sort** → Good for small or nearly sorted data.
+- **Merge Sort** → Best for large datasets.
+
+---
+
+### **Heap Sort**
+
+#### **Concept**
+Heap Sort is a **comparison-based sorting algorithm** that uses a **binary heap** data structure to sort elements. It involves:
+1. **Building a Max Heap**: Convert the input array into a **Max Heap**, where the largest element is at the root.
+2. **Extracting Elements**: Swap the root (largest element) with the last element and **heapify** the reduced heap.
+3. **Repeat** until all elements are sorted.
+
+#### **Steps**
+1. **Build a Max Heap** from the input array.
+2. Swap the **root (largest element)** with the last element.
+3. Reduce the heap size and **heapify** the root.
+4. Repeat until the array is sorted.
+
+#### **Example**
+**Input:** `{5, 3, 8, 4, 2}`
+
+1. **Convert to Max Heap** → `{8, 4, 5, 3, 2}`
+2. **Swap root (8) with last (2)** → `{2, 4, 5, 3, 8}`
+3. **Heapify** `{2, 4, 5, 3}` → `{5, 4, 2, 3, 8}`
+4. **Swap root (5) with last (3)** → `{3, 4, 2, 5, 8}`
+5. **Heapify** `{3, 4, 2}` → `{4, 3, 2, 5, 8}`
+6. **Swap root (4) with last (2)** → `{2, 3, 4, 5, 8}`
+7. **Heapify** `{2, 3}` → `{3, 2, 4, 5, 8}`
+8. **Swap root (3) with last (2)** → `{2, 3, 4, 5, 8}`
+9. **Sorted:** `{2, 3, 4, 5, 8}`
+
+#### **Time Complexity**
+- **Best, Worst & Average Case:** O(n log n)  
+- **Space Complexity:** O(1) (in-place sorting)
+
+#### **Use Case**
+- **Efficient for large datasets**
+- **Not stable** (relative order of equal elements may change)
+
+---
+
+### **Quick Sort**
+
+#### **Concept**
+Quick Sort is a **divide-and-conquer** sorting algorithm that selects a **pivot** and partitions elements around it.
+
+#### **Steps**
+1. **Choose a Pivot** (can be first, last, or middle element).
+2. **Partition** the array so that:
+   - Elements **smaller** than pivot go to the left.
+   - Elements **larger** than pivot go to the right.
+3. **Recursively apply** Quick Sort to both left and right partitions.
+
+#### **Example**
+**Input:** `{5, 3, 8, 4, 2}`  
+**Step 1:** Choose pivot = `5`  
+Partition: `{3, 4, 2} | 5 | {8}`  
+
+**Step 2:** Recursively sort `{3, 4, 2}`  
+Pivot = `3` → Partition: `{2} | 3 | {4}`  
+Sorted Left: `{2, 3, 4}`  
+
+**Step 3:** Recursively sort `{8}` (already sorted)  
+
+Final sorted array: `{2, 3, 4, 5, 8}`  
+
+#### **Time Complexity**
+- **Best & Average Case:** O(n log n)  
+- **Worst Case (if badly chosen pivot):** O(n²)  
+- **Space Complexity:** O(log n) (due to recursion)
+
+#### **Use Case**
+- **Fastest in practice for large datasets**  
+- **Not stable**, but works well with **in-place sorting**
+
+---
+
+### **Comparison: Heap Sort vs. Quick Sort**
+| Algorithm  | Best Case  | Worst Case  | Space Complexity | Stable?  | Suitable for Large Data? |
+|------------|-----------|-------------|------------------|----------|--------------------------|
+| **Heap Sort**  | O(n log n)  | O(n log n)  | O(1) (in-place)  | No  | Yes  |
+| **Quick Sort** | O(n log n)  | O(n²) (bad pivot)  | O(log n)  | No  | Yes (if optimized) |
+
+#### **Which One to Use?**
+- **Heap Sort:** When **worst-case guarantee** is needed.
+- **Quick Sort:** When **average-case performance** is preferred.
+
+Would you like an implementation of both in C++? 🚀
+
+This should give you a clear understanding! Do you need more details on any specific part?
