@@ -1,0 +1,316 @@
+Let's go through both **Singly Linked List (SLL)** and **Doubly Linked List (DLL)** step by step.
+
+---
+
+# **1. Singly Linked List (SLL) Explanation**
+A **singly linked list** consists of nodes where each node contains:
+- **Data** (stores a value)
+- **Pointer (next)** to the next node in the sequence.
+
+### **Step-by-Step Explanation**
+---
+### **Step 1: Define a Node Structure**
+```cpp
+struct Node {
+    int data;
+    Node* next;
+};
+```
+- Each node stores an integer value (`data`).
+- Each node has a pointer (`next`) pointing to the next node in the list.
+
+---
+
+### **Step 2: Define a LinkedList Class**
+```cpp
+class LinkedList {
+private:
+    Node* head;
+
+public:
+    LinkedList() { head = nullptr; }
+};
+```
+- `head` is the first node of the list.
+- Initially, `head` is `nullptr` (empty list).
+
+---
+
+### **Step 3: Add a Node at the End**
+```cpp
+void add(int value) {
+    Node* newNode = new Node{value, nullptr};
+    if (!head) {
+        head = newNode;
+        return;
+    }
+    Node* temp = head;
+    while (temp->next) temp = temp->next;
+    temp->next = newNode;
+}
+```
+- A new node is created (`newNode`).
+- If the list is empty (`head == nullptr`), the new node becomes the head.
+- Otherwise, traverse the list to the last node and link `newNode` to it.
+
+---
+
+### **Step 4: Delete a Node by Value**
+```cpp
+void remove(int value) {
+    if (!head) return;
+    if (head->data == value) {
+        Node* temp = head;
+        head = head->next;
+        delete temp;
+        return;
+    }
+    Node* temp = head;
+    while (temp->next && temp->next->data != value)
+        temp = temp->next;
+    if (temp->next) {
+        Node* toDelete = temp->next;
+        temp->next = temp->next->next;
+        delete toDelete;
+    }
+}
+```
+- If `head` contains the value, update `head` and delete the old node.
+- Otherwise, traverse until the node before the target node.
+- Adjust pointers and delete the target node.
+
+---
+
+### **Step 5: Update a Node's Value**
+```cpp
+void update(int oldValue, int newValue) {
+    Node* temp = head;
+    while (temp) {
+        if (temp->data == oldValue) {
+            temp->data = newValue;
+            return;
+        }
+        temp = temp->next;
+    }
+}
+```
+- Traverse the list and update the node if it matches `oldValue`.
+
+---
+
+### **Step 6: Search for a Value**
+```cpp
+bool search(int value) {
+    Node* temp = head;
+    while (temp) {
+        if (temp->data == value) return true;
+        temp = temp->next;
+    }
+    return false;
+}
+```
+- Traverse and return `true` if the value is found.
+
+---
+
+### **Step 7: Display the List**
+```cpp
+void display() {
+    Node* temp = head;
+    while (temp) {
+        cout << temp->data << " -> ";
+        temp = temp->next;
+    }
+    cout << "NULL\n";
+}
+```
+- Traverse and print each node's data.
+
+---
+
+### **Step 8: Destructor (Memory Cleanup)**
+```cpp
+~LinkedList() {
+    Node* temp;
+    while (head) {
+        temp = head;
+        head = head->next;
+        delete temp;
+    }
+}
+```
+- Free all allocated memory to prevent leaks.
+
+---
+
+### **Flow Diagram**
+```
+[10] -> [20] -> [30] -> NULL
+```
+- **Add 40**: `[10] -> [20] -> [30] -> [40] -> NULL`
+- **Remove 20**: `[10] -> [30] -> [40] -> NULL`
+- **Update 30 to 50**: `[10] -> [50] -> [40] -> NULL`
+- **Search 50** → Found
+
+---
+
+# **2. Doubly Linked List (DLL) Explanation**
+A **doubly linked list** consists of nodes where each node contains:
+- **Data** (stores a value)
+- **Pointer (prev)** to the previous node
+- **Pointer (next)** to the next node
+
+### **Step-by-Step Explanation**
+---
+### **Step 1: Define a Node Structure**
+```cpp
+struct Node {
+    int data;
+    Node* prev;
+    Node* next;
+};
+```
+- Each node stores an integer value (`data`).
+- `prev` points to the previous node.
+- `next` points to the next node.
+
+---
+
+### **Step 2: Define a DoublyLinkedList Class**
+```cpp
+class DoublyLinkedList {
+private:
+    Node* head;
+
+public:
+    DoublyLinkedList() { head = nullptr; }
+};
+```
+- `head` stores the first node of the list.
+
+---
+
+### **Step 3: Add a Node at the End**
+```cpp
+void add(int value) {
+    Node* newNode = new Node{value, nullptr, nullptr};
+    if (!head) {
+        head = newNode;
+        return;
+    }
+    Node* temp = head;
+    while (temp->next) temp = temp->next;
+    temp->next = newNode;
+    newNode->prev = temp;
+}
+```
+- A new node is created (`newNode`).
+- If the list is empty, it becomes the head.
+- Otherwise, traverse to the last node and link `newNode`.
+
+---
+
+### **Step 4: Delete a Node by Value**
+```cpp
+void remove(int value) {
+    if (!head) return;
+    Node* temp = head;
+    while (temp && temp->data != value) temp = temp->next;
+
+    if (!temp) return;
+    if (temp->prev) temp->prev->next = temp->next;
+    if (temp->next) temp->next->prev = temp->prev;
+    if (temp == head) head = temp->next;
+
+    delete temp;
+}
+```
+- If `head` contains the value, update `head`.
+- Otherwise, adjust `prev` and `next` pointers before deleting.
+
+---
+
+### **Step 5: Update a Node's Value**
+```cpp
+void update(int oldValue, int newValue) {
+    Node* temp = head;
+    while (temp) {
+        if (temp->data == oldValue) {
+            temp->data = newValue;
+            return;
+        }
+        temp = temp->next;
+    }
+}
+```
+- Traverse and update the node's value.
+
+---
+
+### **Step 6: Search for a Value**
+```cpp
+bool search(int value) {
+    Node* temp = head;
+    while (temp) {
+        if (temp->data == value) return true;
+        temp = temp->next;
+    }
+    return false;
+}
+```
+- Traverse and return `true` if found.
+
+---
+
+### **Step 7: Display the List (Forward & Reverse)**
+```cpp
+void display() {
+    Node* temp = head;
+    while (temp) {
+        cout << temp->data << " <-> ";
+        temp = temp->next;
+    }
+    cout << "NULL\n";
+}
+
+void displayReverse() {
+    if (!head) return;
+    Node* temp = head;
+    while (temp->next) temp = temp->next;
+
+    while (temp) {
+        cout << temp->data << " <-> ";
+        temp = temp->prev;
+    }
+    cout << "NULL\n";
+}
+```
+- Traverse and print each node.
+
+---
+
+### **Step 8: Destructor (Memory Cleanup)**
+```cpp
+~DoublyLinkedList() {
+    Node* temp;
+    while (head) {
+        temp = head;
+        head = head->next;
+        delete temp;
+    }
+}
+```
+- Free memory to prevent leaks.
+
+---
+
+### **Flow Diagram**
+```
+NULL <- [10] <-> [20] <-> [30] -> NULL
+```
+- **Add 40**: `NULL <- [10] <-> [20] <-> [30] <-> [40] -> NULL`
+- **Remove 20**: `NULL <- [10] <-> [30] <-> [40] -> NULL`
+- **Update 30 to 50**: `NULL <- [10] <-> [50] <-> [40] -> NULL`
+- **Search 50** → Found
+
+Would you like any modifications? 😊
