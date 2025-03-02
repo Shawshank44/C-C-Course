@@ -1,0 +1,268 @@
+Let's go through the code step by step to understand how it works.
+
+---
+
+## **1️⃣ Header Files and Constants**
+```cpp
+#include <iostream>
+using namespace std;
+
+const int MAX = 10; // Maximum matrix size
+```
+- `#include <iostream>` allows us to use input (`cin`) and output (`cout`).
+- `MAX` is set to `10`, meaning the largest matrix we can use is `10x10`.
+
+---
+
+## **2️⃣ Function to Input a Matrix**
+```cpp
+void inputMatrix(int mat[MAX][MAX], int rows, int columns) {
+    cout << "Enter matrix elements (" << rows << " x " << columns << "):\n";
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < columns; j++) {
+            cin >> mat[i][j];
+        }
+    }
+}
+```
+- Asks the user to input a matrix of `rows × columns` size.
+- Uses **nested loops** to iterate over the matrix and store values from the user.
+
+---
+
+## **3️⃣ Function to Display a Matrix**
+```cpp
+void displayMatrix(int mat[MAX][MAX], int rows, int columns) {
+    cout << "Matrix:\n";
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < columns; j++) {
+            cout << mat[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
+```
+- Prints a matrix in **row-column format**.
+
+---
+
+## **4️⃣ Function to Add Two Matrices**
+```cpp
+void addMatrices(int A[MAX][MAX], int B[MAX][MAX], int result[MAX][MAX], int rows, int columns) {
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < columns; j++) {
+            result[i][j] = A[i][j] + B[i][j];
+        }
+    }
+}
+```
+- Adds corresponding elements of two matrices (`A` and `B`).
+- Stores the result in `result[i][j]`.
+
+Example:
+```
+A =  1 2
+     3 4
+B =  5 6
+     7 8
+Result = A + B =  6  8
+                  10 12
+```
+
+---
+
+## **5️⃣ Function to Subtract Two Matrices**
+```cpp
+void subtractMatrices(int A[MAX][MAX], int B[MAX][MAX], int result[MAX][MAX], int rows, int columns) {
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < columns; j++) {
+            result[i][j] = A[i][j] - B[i][j];
+        }
+    }
+}
+```
+- Subtracts corresponding elements of `A` and `B`.
+
+Example:
+```
+A =  5 6
+     7 8
+B =  1 2
+     3 4
+Result = A - B =  4 4
+                  4 4
+```
+
+---
+
+## **6️⃣ Function to Multiply Two Matrices**
+```cpp
+void multiplyMatrices(int A[MAX][MAX], int B[MAX][MAX], int result[MAX][MAX], int r1, int c1, int c2) {
+    // Initialize result matrix to zero
+    for (int i = 0; i < r1; i++) {
+        for (int j = 0; j < c2; j++) {
+            result[i][j] = 0;
+        }
+    }
+
+    for (int i = 0; i < r1; i++) {
+        for (int j = 0; j < c2; j++) {
+            for (int k = 0; k < c1; k++) {
+                result[i][j] += A[i][k] * B[k][j];
+            }
+        }
+    }
+}
+```
+### **Explanation**
+- Matrix multiplication is done using three loops:
+  - `i`: Rows of `A`
+  - `j`: Columns of `B`
+  - `k`: Common dimension (Columns of `A` = Rows of `B`)
+
+Example:
+```
+A =  1 2 3
+     4 5 6
+
+B =  7  8
+     9 10
+    11 12
+
+Result = A * B =
+(1×7 + 2×9 + 3×11)  (1×8 + 2×10 + 3×12)
+(4×7 + 5×9 + 6×11)  (4×8 + 5×10 + 6×12)
+=  58  64
+   139 154
+```
+
+---
+
+## **7️⃣ Function to Transpose a Matrix**
+```cpp
+void transposeMatrix(int mat[MAX][MAX], int trans[MAX][MAX], int rows, int columns) {
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < columns; j++) {
+            trans[j][i] = mat[i][j];
+        }
+    }
+}
+```
+- Converts **rows into columns and columns into rows**.
+
+Example:
+```
+A =  1 2 3
+     4 5 6
+
+Transposed =  1 4
+              2 5
+              3 6
+```
+
+---
+
+## **8️⃣ Main Function (Menu-Driven)**
+```cpp
+int main() {
+    int choice, rows1, cols1, rows2, cols2;
+    int A[MAX][MAX], B[MAX][MAX], result[MAX][MAX], trans[MAX][MAX];
+```
+- Declares matrices and dimensions.
+
+### **Menu Options**
+```cpp
+do {
+    cout << "\nMatrix Operations:\n";
+    cout << "1. Addition\n2. Subtraction\n3. Multiplication\n4. Transposition\n5. Exit\n";
+    cout << "Enter your choice: ";
+    cin >> choice;
+```
+- Asks the user to choose an operation.
+
+### **Handling Addition, Subtraction, Multiplication**
+```cpp
+if (choice >= 1 && choice <= 3) {
+    cout << "Enter rows and columns for first matrix: ";
+    cin >> rows1 >> cols1;
+    inputMatrix(A, rows1, cols1);
+
+    cout << "Enter rows and columns for second matrix: ";
+    cin >> rows2 >> cols2;
+    inputMatrix(B, rows2, cols2);
+}
+```
+- Takes input for matrices before performing addition, subtraction, or multiplication.
+
+### **Performing Addition**
+```cpp
+case 1:
+    if (rows1 == rows2 && cols1 == cols2) {
+        addMatrices(A, B, result, rows1, cols1);
+        cout << "Resultant Matrix after Addition:\n";
+        displayMatrix(result, rows1, cols1);
+    } else {
+        cout << "Addition not possible. Matrices must have the same dimensions.\n";
+    }
+    break;
+```
+- Checks if both matrices have the **same dimensions** before adding.
+
+### **Performing Subtraction**
+```cpp
+case 2:
+    if (rows1 == rows2 && cols1 == cols2) {
+        subtractMatrices(A, B, result, rows1, cols1);
+        cout << "Resultant Matrix after Subtraction:\n";
+        displayMatrix(result, rows1, cols1);
+    } else {
+        cout << "Subtraction not possible. Matrices must have the same dimensions.\n";
+    }
+    break;
+```
+- Similar to addition but performs subtraction.
+
+### **Performing Multiplication**
+```cpp
+case 3:
+    if (cols1 == rows2) {
+        multiplyMatrices(A, B, result, rows1, cols1, cols2);
+        cout << "Resultant Matrix after Multiplication:\n";
+        displayMatrix(result, rows1, cols2);
+    } else {
+        cout << "Multiplication not possible. Columns of first matrix must match rows of second.\n";
+    }
+    break;
+```
+- Ensures multiplication is **valid** (cols of A = rows of B).
+
+### **Handling Transposition**
+```cpp
+case 4:
+    cout << "Enter rows and columns for matrix: ";
+    cin >> rows1 >> cols1;
+    inputMatrix(A, rows1, cols1);
+    transposeMatrix(A, trans, rows1, cols1);
+    cout << "Transposed Matrix:\n";
+    displayMatrix(trans, cols1, rows1);
+    break;
+```
+- Takes input for one matrix and transposes it.
+
+### **Exit Case**
+```cpp
+case 5:
+    cout << "Exiting program.\n";
+    break;
+```
+- Stops the loop.
+
+---
+
+## **Summary**
+✔️ Menu-based matrix operations  
+✔️ Validations for each operation  
+✔️ Clear function structure  
+🚀 Well-structured for future expansion (e.g., determinant, inverse)
+
+Would you like to add **more operations** or **optimize** further? 😊
